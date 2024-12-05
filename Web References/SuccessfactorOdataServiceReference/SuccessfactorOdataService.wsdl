@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://Successfactor.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://Successfactor.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://Successfactor.org/">
+      <s:element name="UpdateEmployeeDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SFEvent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EventDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateEmployeeDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateEmployeeDetailsResult" type="tns:WebResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WebResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ResponceTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="SFEmployeeDetails" type="tns:ArrayOfSFEmployeeDetails" />
+          <s:element minOccurs="1" maxOccurs="1" name="NoRecoreds" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSFEmployeeDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SFEmployeeDetails" nillable="true" type="tns:SFEmployeeDetails" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SFEmployeeDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Empno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Empname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Firstname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Middlename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Lastname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dob" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emailid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PersonalEmailid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Dogj" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Doj" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Companycode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Jobfamily" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sbucode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sbu" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gradecode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grade" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Jobcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Job" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Designationcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Designation" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zonecode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Regioncode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Region" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Locationcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Location" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Costcenter" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Empcategorycode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Functionalmanager" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Employmentstatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Maritalstatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Preaddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Preaddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Preaddress3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Precity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Precountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Prestate" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Prepincode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Exitdate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Entrydate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Resignationdate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Jobreason" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Verticalcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Vertical" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Divisioncode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Division" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Departmentcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Department" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subdepartmentcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subdepartment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Empcategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Adminmanager" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Active" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Positiongrade" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ValidUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Employeeid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ValidUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidFormerUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Employeeid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidFormerUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ValidFormerUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Employeeid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OldPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdatePasswordResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Employeeid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserDetailsResult" type="tns:ArrayOfSFEmployeeDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EmployeeAssetDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FromDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ToDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EmployeeAssetDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EmployeeAssetDetailsResult" type="tns:ArrayOfSFAssetDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSFAssetDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SFAssetDetails" nillable="true" type="tns:SFAssetDetails" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SFAssetDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AssetType" />
+          <s:element minOccurs="0" maxOccurs="1" name="AssetModel" />
+          <s:element minOccurs="0" maxOccurs="1" name="AssetSerilaNo" />
+          <s:element minOccurs="0" maxOccurs="1" name="AssetAllocatedTo" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmpResignList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetEmpResignListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmpResignListResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WebResponse" nillable="true" type="tns:WebResponse" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="ArrayOfSFEmployeeDetails" nillable="true" type="tns:ArrayOfSFEmployeeDetails" />
+      <s:element name="ArrayOfSFAssetDetails" nillable="true" type="tns:ArrayOfSFAssetDetails" />
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UpdateEmployeeDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeDetails" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateEmployeeDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidUserSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidUser" />
+  </wsdl:message>
+  <wsdl:message name="ValidUserSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidFormerUserSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidFormerUser" />
+  </wsdl:message>
+  <wsdl:message name="ValidFormerUserSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidFormerUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePassword" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:UserDetails" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:UserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="EmployeeAssetDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:EmployeeAssetDetails" />
+  </wsdl:message>
+  <wsdl:message name="EmployeeAssetDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:EmployeeAssetDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpResignListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmpResignList" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpResignListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmpResignListResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeDetailsHttpGetIn">
+    <wsdl:part name="SFEvent" type="s:string" />
+    <wsdl:part name="EventDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeDetailsHttpGetOut">
+    <wsdl:part name="Body" element="tns:WebResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidUserHttpGetIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ValidFormerUserHttpGetIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidFormerUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordHttpGetIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+    <wsdl:part name="OldPassword" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpGetIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSFEmployeeDetails" />
+  </wsdl:message>
+  <wsdl:message name="EmployeeAssetDetailsHttpGetIn">
+    <wsdl:part name="FromDate" type="s:string" />
+    <wsdl:part name="ToDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EmployeeAssetDetailsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSFAssetDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpResignListHttpGetIn" />
+  <wsdl:message name="GetEmpResignListHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeDetailsHttpPostIn">
+    <wsdl:part name="SFEvent" type="s:string" />
+    <wsdl:part name="EventDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdateEmployeeDetailsHttpPostOut">
+    <wsdl:part name="Body" element="tns:WebResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidUserHttpPostIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="ValidFormerUserHttpPostIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ValidFormerUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordHttpPostIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+    <wsdl:part name="OldPassword" type="s:string" />
+    <wsdl:part name="NewPassword" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePasswordHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpPostIn">
+    <wsdl:part name="Employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSFEmployeeDetails" />
+  </wsdl:message>
+  <wsdl:message name="EmployeeAssetDetailsHttpPostIn">
+    <wsdl:part name="FromDate" type="s:string" />
+    <wsdl:part name="ToDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EmployeeAssetDetailsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSFAssetDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetEmpResignListHttpPostIn" />
+  <wsdl:message name="GetEmpResignListHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="SuccessfactorOdataServiceSoap">
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <wsdl:input message="tns:UpdateEmployeeDetailsSoapIn" />
+      <wsdl:output message="tns:UpdateEmployeeDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid User By passing Employeeid and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidUserSoapIn" />
+      <wsdl:output message="tns:ValidUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid User By passing Employeeid and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidFormerUserSoapIn" />
+      <wsdl:output message="tns:ValidFormerUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update Password By passing Employeeid, Old Password , New Password.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePasswordSoapIn" />
+      <wsdl:output message="tns:UpdatePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsSoapIn" />
+      <wsdl:output message="tns:UserDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Asset Allocation and De Allocation Details By passing Start and End Date, Date format: dd/mm/yyyy</wsdl:documentation>
+      <wsdl:input message="tns:EmployeeAssetDetailsSoapIn" />
+      <wsdl:output message="tns:EmployeeAssetDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Resign Employee List</wsdl:documentation>
+      <wsdl:input message="tns:GetEmpResignListSoapIn" />
+      <wsdl:output message="tns:GetEmpResignListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SuccessfactorOdataServiceHttpGet">
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <wsdl:input message="tns:UpdateEmployeeDetailsHttpGetIn" />
+      <wsdl:output message="tns:UpdateEmployeeDetailsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid User By passing Employeeid and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidUserHttpGetIn" />
+      <wsdl:output message="tns:ValidUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid User By passing Employeeid and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidFormerUserHttpGetIn" />
+      <wsdl:output message="tns:ValidFormerUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update Password By passing Employeeid, Old Password , New Password.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePasswordHttpGetIn" />
+      <wsdl:output message="tns:UpdatePasswordHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsHttpGetIn" />
+      <wsdl:output message="tns:UserDetailsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Asset Allocation and De Allocation Details By passing Start and End Date, Date format: dd/mm/yyyy</wsdl:documentation>
+      <wsdl:input message="tns:EmployeeAssetDetailsHttpGetIn" />
+      <wsdl:output message="tns:EmployeeAssetDetailsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Resign Employee List</wsdl:documentation>
+      <wsdl:input message="tns:GetEmpResignListHttpGetIn" />
+      <wsdl:output message="tns:GetEmpResignListHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SuccessfactorOdataServiceHttpPost">
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <wsdl:input message="tns:UpdateEmployeeDetailsHttpPostIn" />
+      <wsdl:output message="tns:UpdateEmployeeDetailsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid User By passing Employeeid and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidUserHttpPostIn" />
+      <wsdl:output message="tns:ValidUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid User By passing Employeeid and Password.</wsdl:documentation>
+      <wsdl:input message="tns:ValidFormerUserHttpPostIn" />
+      <wsdl:output message="tns:ValidFormerUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update Password By passing Employeeid, Old Password , New Password.</wsdl:documentation>
+      <wsdl:input message="tns:UpdatePasswordHttpPostIn" />
+      <wsdl:output message="tns:UpdatePasswordHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsHttpPostIn" />
+      <wsdl:output message="tns:UserDetailsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Asset Allocation and De Allocation Details By passing Start and End Date, Date format: dd/mm/yyyy</wsdl:documentation>
+      <wsdl:input message="tns:EmployeeAssetDetailsHttpPostIn" />
+      <wsdl:output message="tns:EmployeeAssetDetailsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Resign Employee List</wsdl:documentation>
+      <wsdl:input message="tns:GetEmpResignListHttpPostIn" />
+      <wsdl:output message="tns:GetEmpResignListHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SuccessfactorOdataServiceSoap" type="tns:SuccessfactorOdataServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <soap:operation soapAction="http://Successfactor.org/UpdateEmployeeDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <soap:operation soapAction="http://Successfactor.org/ValidUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <soap:operation soapAction="http://Successfactor.org/ValidFormerUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <soap:operation soapAction="http://Successfactor.org/UpdatePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap:operation soapAction="http://Successfactor.org/UserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <soap:operation soapAction="http://Successfactor.org/EmployeeAssetDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <soap:operation soapAction="http://Successfactor.org/GetEmpResignList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SuccessfactorOdataServiceSoap12" type="tns:SuccessfactorOdataServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <soap12:operation soapAction="http://Successfactor.org/UpdateEmployeeDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <soap12:operation soapAction="http://Successfactor.org/ValidUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <soap12:operation soapAction="http://Successfactor.org/ValidFormerUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <soap12:operation soapAction="http://Successfactor.org/UpdatePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap12:operation soapAction="http://Successfactor.org/UserDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <soap12:operation soapAction="http://Successfactor.org/EmployeeAssetDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <soap12:operation soapAction="http://Successfactor.org/GetEmpResignList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SuccessfactorOdataServiceHttpGet" type="tns:SuccessfactorOdataServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <http:operation location="/UpdateEmployeeDetails" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <http:operation location="/ValidUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <http:operation location="/ValidFormerUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <http:operation location="/UpdatePassword" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <http:operation location="/UserDetails" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <http:operation location="/EmployeeAssetDetails" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <http:operation location="/GetEmpResignList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SuccessfactorOdataServiceHttpPost" type="tns:SuccessfactorOdataServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="UpdateEmployeeDetails">
+      <http:operation location="/UpdateEmployeeDetails" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidUser">
+      <http:operation location="/ValidUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidFormerUser">
+      <http:operation location="/ValidFormerUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePassword">
+      <http:operation location="/UpdatePassword" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <http:operation location="/UserDetails" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmployeeAssetDetails">
+      <http:operation location="/EmployeeAssetDetails" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmpResignList">
+      <http:operation location="/GetEmpResignList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SuccessfactorOdataService">
+    <wsdl:port name="SuccessfactorOdataServiceSoap" binding="tns:SuccessfactorOdataServiceSoap">
+      <soap:address location="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SuccessfactorOdataServiceSoap12" binding="tns:SuccessfactorOdataServiceSoap12">
+      <soap12:address location="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SuccessfactorOdataServiceHttpGet" binding="tns:SuccessfactorOdataServiceHttpGet">
+      <http:address location="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SuccessfactorOdataServiceHttpPost" binding="tns:SuccessfactorOdataServiceHttpPost">
+      <http:address location="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

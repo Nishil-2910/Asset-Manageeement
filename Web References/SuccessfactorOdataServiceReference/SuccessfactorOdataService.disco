@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx?wsdl" docRef="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" xmlns:q1="http://Successfactor.org/" binding="q1:SuccessfactorOdataServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx" xmlns:q2="http://Successfactor.org/" binding="q2:SuccessfactorOdataServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>
