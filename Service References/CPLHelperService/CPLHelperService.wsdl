@@ -1,0 +1,1005 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://CPLHelpserService.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://CPLHelpserService.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://CPLHelpserService.org/">
+      <s:element name="GetApplicationMenu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationcode" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="empcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetApplicationMenuResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetApplicationMenuResult" type="tns:ArrayOfApplicationmenu" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfApplicationmenu">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Applicationmenu" nillable="true" type="tns:Applicationmenu" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Applicationmenu">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Applicationcode" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Applicationname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Menucode" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Menuname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Parentmenucode" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Rolecode" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rolename" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Empcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Accesskey" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Division" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Divname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Unit" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unitname" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="HRISValidUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HRISValidUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="HRISValidUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employeeid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserDetailsResult" type="tns:ArrayOfUserLoginData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUserLoginData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserLoginData" nillable="true" type="tns:UserLoginData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserLoginData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EMPNO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMPNAME" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="STATUS" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usertype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emptype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Division" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Divisionname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Unit" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unitname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Loccd" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Locname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Company" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmpname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ChangeApplicationUserStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationcode" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="employeeid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeApplicationUserStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChangeApplicationUserStatusResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetApplicationUserRole">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationcode" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetApplicationUserRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetApplicationUserRoleResult" type="tns:ArrayOfApplicationUserRole" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfApplicationUserRole">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ApplicationUserRole" nillable="true" type="tns:ApplicationUserRole" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ApplicationUserRole">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Rolecode" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Rolename" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEmployeeApplicationUserRole">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="applicationcode" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="employeeid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEmployeeApplicationUserRoleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEmployeeApplicationUserRoleResult" type="tns:ArrayOfApplicationUserRole" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHRISEmployeeList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetHRISEmployeeListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHRISEmployeeListResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHRISEmployeeDetailList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employeeid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHRISEmployeeDetailListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHRISEmployeeDetailListResult" type="tns:ArrayOfEmployeeDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEmployeeDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EmployeeDetail" nillable="true" type="tns:EmployeeDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EmployeeDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Empno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Empname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmpname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Division" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Divname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unit" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Untname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Dept" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Deptname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emptype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mngtgrp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Desgname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Joindt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Grpjndt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cleardt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Resigndt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Confrmdt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Trnsfrdt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReportingSupervisor" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Hod" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Shift" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Holiday" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pmtday" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Daid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Vdacode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pfcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Esicode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Panno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Aadharno" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Pmtflg" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bankcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bkaccode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bkifsccode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Maritals" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Marrgdt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Bldgrp" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emailid" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OtherValidUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OtherValidUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="OtherValidUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OtherUserDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employeeid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OtherUserDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OtherUserDetailsResult" type="tns:ArrayOfUserLoginData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfApplicationmenu" nillable="true" type="tns:ArrayOfApplicationmenu" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="ArrayOfUserLoginData" nillable="true" type="tns:ArrayOfUserLoginData" />
+      <s:element name="ArrayOfApplicationUserRole" nillable="true" type="tns:ArrayOfApplicationUserRole" />
+      <s:element name="DataTable" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfEmployeeDetail" nillable="true" type="tns:ArrayOfEmployeeDetail" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetApplicationMenuSoapIn">
+    <wsdl:part name="parameters" element="tns:GetApplicationMenu" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationMenuSoapOut">
+    <wsdl:part name="parameters" element="tns:GetApplicationMenuResponse" />
+  </wsdl:message>
+  <wsdl:message name="HRISValidUserSoapIn">
+    <wsdl:part name="parameters" element="tns:HRISValidUser" />
+  </wsdl:message>
+  <wsdl:message name="HRISValidUserSoapOut">
+    <wsdl:part name="parameters" element="tns:HRISValidUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:UserDetails" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:UserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeApplicationUserStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeApplicationUserStatus" />
+  </wsdl:message>
+  <wsdl:message name="ChangeApplicationUserStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeApplicationUserStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationUserRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:GetApplicationUserRole" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationUserRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:GetApplicationUserRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeApplicationUserRoleSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEmployeeApplicationUserRole" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeApplicationUserRoleSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEmployeeApplicationUserRoleResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHRISEmployeeList" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHRISEmployeeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeDetailListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHRISEmployeeDetailList" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeDetailListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHRISEmployeeDetailListResponse" />
+  </wsdl:message>
+  <wsdl:message name="OtherValidUserSoapIn">
+    <wsdl:part name="parameters" element="tns:OtherValidUser" />
+  </wsdl:message>
+  <wsdl:message name="OtherValidUserSoapOut">
+    <wsdl:part name="parameters" element="tns:OtherValidUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="OtherUserDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:OtherUserDetails" />
+  </wsdl:message>
+  <wsdl:message name="OtherUserDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:OtherUserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationMenuHttpGetIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+    <wsdl:part name="empcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationMenuHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfApplicationmenu" />
+  </wsdl:message>
+  <wsdl:message name="HRISValidUserHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HRISValidUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpGetIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserLoginData" />
+  </wsdl:message>
+  <wsdl:message name="ChangeApplicationUserStatusHttpGetIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+    <wsdl:part name="employeeid" type="s:string" />
+    <wsdl:part name="status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeApplicationUserStatusHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationUserRoleHttpGetIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationUserRoleHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfApplicationUserRole" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeApplicationUserRoleHttpGetIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeApplicationUserRoleHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfApplicationUserRole" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeListHttpGetIn" />
+  <wsdl:message name="GetHRISEmployeeListHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeDetailListHttpGetIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeDetailListHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEmployeeDetail" />
+  </wsdl:message>
+  <wsdl:message name="OtherValidUserHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OtherValidUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="OtherUserDetailsHttpGetIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OtherUserDetailsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserLoginData" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationMenuHttpPostIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+    <wsdl:part name="empcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationMenuHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfApplicationmenu" />
+  </wsdl:message>
+  <wsdl:message name="HRISValidUserHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="HRISValidUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpPostIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserLoginData" />
+  </wsdl:message>
+  <wsdl:message name="ChangeApplicationUserStatusHttpPostIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+    <wsdl:part name="employeeid" type="s:string" />
+    <wsdl:part name="status" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ChangeApplicationUserStatusHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationUserRoleHttpPostIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetApplicationUserRoleHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfApplicationUserRole" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeApplicationUserRoleHttpPostIn">
+    <wsdl:part name="applicationcode" type="s:string" />
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetEmployeeApplicationUserRoleHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfApplicationUserRole" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeListHttpPostIn" />
+  <wsdl:message name="GetHRISEmployeeListHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataTable" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeDetailListHttpPostIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHRISEmployeeDetailListHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfEmployeeDetail" />
+  </wsdl:message>
+  <wsdl:message name="OtherValidUserHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OtherValidUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="OtherUserDetailsHttpPostIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="OtherUserDetailsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserLoginData" />
+  </wsdl:message>
+  <wsdl:portType name="CPLHelperServiceSoap">
+    <wsdl:operation name="GetApplicationMenu">
+      <wsdl:input message="tns:GetApplicationMenuSoapIn" />
+      <wsdl:output message="tns:GetApplicationMenuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"> Check Valid HRIS User By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:HRISValidUserSoapIn" />
+      <wsdl:output message="tns:HRISValidUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsSoapIn" />
+      <wsdl:output message="tns:UserDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Change Application User Status [Active / Inactive] by passing Applicationcode,Employeeid and status</wsdl:documentation>
+      <wsdl:input message="tns:ChangeApplicationUserStatusSoapIn" />
+      <wsdl:output message="tns:ChangeApplicationUserStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Application User Role List By Passing Appllicationcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetApplicationUserRoleSoapIn" />
+      <wsdl:output message="tns:GetApplicationUserRoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Application specific user role by passing applicarion code and emaployeeid.</wsdl:documentation>
+      <wsdl:input message="tns:GetEmployeeApplicationUserRoleSoapIn" />
+      <wsdl:output message="tns:GetEmployeeApplicationUserRoleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get All HRIS/HRMS Employees list</wsdl:documentation>
+      <wsdl:input message="tns:GetHRISEmployeeListSoapIn" />
+      <wsdl:output message="tns:GetHRISEmployeeListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get All HRIS/HRMS Employees Details list</wsdl:documentation>
+      <wsdl:input message="tns:GetHRISEmployeeDetailListSoapIn" />
+      <wsdl:output message="tns:GetHRISEmployeeDetailListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Validate other than HRMS user By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:OtherValidUserSoapIn" />
+      <wsdl:output message="tns:OtherValidUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Other than HRMS User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:OtherUserDetailsSoapIn" />
+      <wsdl:output message="tns:OtherUserDetailsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="CPLHelperServiceHttpGet">
+    <wsdl:operation name="GetApplicationMenu">
+      <wsdl:input message="tns:GetApplicationMenuHttpGetIn" />
+      <wsdl:output message="tns:GetApplicationMenuHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"> Check Valid HRIS User By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:HRISValidUserHttpGetIn" />
+      <wsdl:output message="tns:HRISValidUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsHttpGetIn" />
+      <wsdl:output message="tns:UserDetailsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Change Application User Status [Active / Inactive] by passing Applicationcode,Employeeid and status</wsdl:documentation>
+      <wsdl:input message="tns:ChangeApplicationUserStatusHttpGetIn" />
+      <wsdl:output message="tns:ChangeApplicationUserStatusHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Application User Role List By Passing Appllicationcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetApplicationUserRoleHttpGetIn" />
+      <wsdl:output message="tns:GetApplicationUserRoleHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Application specific user role by passing applicarion code and emaployeeid.</wsdl:documentation>
+      <wsdl:input message="tns:GetEmployeeApplicationUserRoleHttpGetIn" />
+      <wsdl:output message="tns:GetEmployeeApplicationUserRoleHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get All HRIS/HRMS Employees list</wsdl:documentation>
+      <wsdl:input message="tns:GetHRISEmployeeListHttpGetIn" />
+      <wsdl:output message="tns:GetHRISEmployeeListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get All HRIS/HRMS Employees Details list</wsdl:documentation>
+      <wsdl:input message="tns:GetHRISEmployeeDetailListHttpGetIn" />
+      <wsdl:output message="tns:GetHRISEmployeeDetailListHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Validate other than HRMS user By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:OtherValidUserHttpGetIn" />
+      <wsdl:output message="tns:OtherValidUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Other than HRMS User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:OtherUserDetailsHttpGetIn" />
+      <wsdl:output message="tns:OtherUserDetailsHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="CPLHelperServiceHttpPost">
+    <wsdl:operation name="GetApplicationMenu">
+      <wsdl:input message="tns:GetApplicationMenuHttpPostIn" />
+      <wsdl:output message="tns:GetApplicationMenuHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"> Check Valid HRIS User By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:HRISValidUserHttpPostIn" />
+      <wsdl:output message="tns:HRISValidUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsHttpPostIn" />
+      <wsdl:output message="tns:UserDetailsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Change Application User Status [Active / Inactive] by passing Applicationcode,Employeeid and status</wsdl:documentation>
+      <wsdl:input message="tns:ChangeApplicationUserStatusHttpPostIn" />
+      <wsdl:output message="tns:ChangeApplicationUserStatusHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Application User Role List By Passing Appllicationcode.</wsdl:documentation>
+      <wsdl:input message="tns:GetApplicationUserRoleHttpPostIn" />
+      <wsdl:output message="tns:GetApplicationUserRoleHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Application specific user role by passing applicarion code and emaployeeid.</wsdl:documentation>
+      <wsdl:input message="tns:GetEmployeeApplicationUserRoleHttpPostIn" />
+      <wsdl:output message="tns:GetEmployeeApplicationUserRoleHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get All HRIS/HRMS Employees list</wsdl:documentation>
+      <wsdl:input message="tns:GetHRISEmployeeListHttpPostIn" />
+      <wsdl:output message="tns:GetHRISEmployeeListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get All HRIS/HRMS Employees Details list</wsdl:documentation>
+      <wsdl:input message="tns:GetHRISEmployeeDetailListHttpPostIn" />
+      <wsdl:output message="tns:GetHRISEmployeeDetailListHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Validate other than HRMS user By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:OtherValidUserHttpPostIn" />
+      <wsdl:output message="tns:OtherValidUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Other than HRMS User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:OtherUserDetailsHttpPostIn" />
+      <wsdl:output message="tns:OtherUserDetailsHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CPLHelperServiceSoap" type="tns:CPLHelperServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetApplicationMenu">
+      <soap:operation soapAction="http://CPLHelpserService.org/GetApplicationMenu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <soap:operation soapAction="http://CPLHelpserService.org/HRISValidUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap:operation soapAction="http://CPLHelpserService.org/UserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <soap:operation soapAction="http://CPLHelpserService.org/ChangeApplicationUserStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <soap:operation soapAction="http://CPLHelpserService.org/GetApplicationUserRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <soap:operation soapAction="http://CPLHelpserService.org/GetEmployeeApplicationUserRole" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <soap:operation soapAction="http://CPLHelpserService.org/GetHRISEmployeeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <soap:operation soapAction="http://CPLHelpserService.org/GetHRISEmployeeDetailList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <soap:operation soapAction="http://CPLHelpserService.org/OtherValidUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <soap:operation soapAction="http://CPLHelpserService.org/OtherUserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CPLHelperServiceSoap12" type="tns:CPLHelperServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetApplicationMenu">
+      <soap12:operation soapAction="http://CPLHelpserService.org/GetApplicationMenu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <soap12:operation soapAction="http://CPLHelpserService.org/HRISValidUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap12:operation soapAction="http://CPLHelpserService.org/UserDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <soap12:operation soapAction="http://CPLHelpserService.org/ChangeApplicationUserStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <soap12:operation soapAction="http://CPLHelpserService.org/GetApplicationUserRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <soap12:operation soapAction="http://CPLHelpserService.org/GetEmployeeApplicationUserRole" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <soap12:operation soapAction="http://CPLHelpserService.org/GetHRISEmployeeList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <soap12:operation soapAction="http://CPLHelpserService.org/GetHRISEmployeeDetailList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <soap12:operation soapAction="http://CPLHelpserService.org/OtherValidUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <soap12:operation soapAction="http://CPLHelpserService.org/OtherUserDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CPLHelperServiceHttpGet" type="tns:CPLHelperServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetApplicationMenu">
+      <http:operation location="/GetApplicationMenu" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <http:operation location="/HRISValidUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <http:operation location="/UserDetails" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <http:operation location="/ChangeApplicationUserStatus" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <http:operation location="/GetApplicationUserRole" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <http:operation location="/GetEmployeeApplicationUserRole" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <http:operation location="/GetHRISEmployeeList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <http:operation location="/GetHRISEmployeeDetailList" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <http:operation location="/OtherValidUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <http:operation location="/OtherUserDetails" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CPLHelperServiceHttpPost" type="tns:CPLHelperServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetApplicationMenu">
+      <http:operation location="/GetApplicationMenu" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HRISValidUser">
+      <http:operation location="/HRISValidUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <http:operation location="/UserDetails" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeApplicationUserStatus">
+      <http:operation location="/ChangeApplicationUserStatus" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetApplicationUserRole">
+      <http:operation location="/GetApplicationUserRole" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeApplicationUserRole">
+      <http:operation location="/GetEmployeeApplicationUserRole" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeList">
+      <http:operation location="/GetHRISEmployeeList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHRISEmployeeDetailList">
+      <http:operation location="/GetHRISEmployeeDetailList" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherValidUser">
+      <http:operation location="/OtherValidUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OtherUserDetails">
+      <http:operation location="/OtherUserDetails" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CPLHelperService">
+    <wsdl:port name="CPLHelperServiceSoap" binding="tns:CPLHelperServiceSoap">
+      <soap:address location="http://192.168.16.43/cplservice/CPLHelperService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CPLHelperServiceSoap12" binding="tns:CPLHelperServiceSoap12">
+      <soap12:address location="http://192.168.16.43/cplservice/CPLHelperService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CPLHelperServiceHttpGet" binding="tns:CPLHelperServiceHttpGet">
+      <http:address location="http://192.168.16.43/cplservice/CPLHelperService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CPLHelperServiceHttpPost" binding="tns:CPLHelperServiceHttpPost">
+      <http:address location="http://192.168.16.43/cplservice/CPLHelperService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://cplworkline.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://cplworkline.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://cplworkline.org/">
+      <s:element name="WorklineValidUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Empid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WorklineValidUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="WorklineValidUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employeeid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserDetailsResult" type="tns:ArrayOfUserLoginData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUserLoginData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserLoginData" nillable="true" type="tns:UserLoginData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserLoginData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EMPNO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EMPNAME" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="STATUS" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Usertype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Emptype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Division" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Divisionname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Unit" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Unitname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Loccd" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Locname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Company" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cmpname" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPayslipUrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Empid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPayslipUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPayslipUrlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCPLSSOUrl">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCPLSSOUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCPLSSOUrlResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetResignInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Empid" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Resigndate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetResignInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetResignInfoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptEmployeeID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Empid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EncryptEmployeeIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EncryptEmployeeIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptEmployeeID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EncryptedEmpid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecryptEmployeeIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecryptEmployeeIDResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="ArrayOfUserLoginData" nillable="true" type="tns:ArrayOfUserLoginData" />
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="WorklineValidUserSoapIn">
+    <wsdl:part name="parameters" element="tns:WorklineValidUser" />
+  </wsdl:message>
+  <wsdl:message name="WorklineValidUserSoapOut">
+    <wsdl:part name="parameters" element="tns:WorklineValidUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:UserDetails" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:UserDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPayslipUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPayslipUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetPayslipUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPayslipUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCPLSSOUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCPLSSOUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetCPLSSOUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCPLSSOUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetResignInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:SetResignInfo" />
+  </wsdl:message>
+  <wsdl:message name="SetResignInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:SetResignInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EncryptEmployeeIDSoapIn">
+    <wsdl:part name="parameters" element="tns:EncryptEmployeeID" />
+  </wsdl:message>
+  <wsdl:message name="EncryptEmployeeIDSoapOut">
+    <wsdl:part name="parameters" element="tns:EncryptEmployeeIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecryptEmployeeIDSoapIn">
+    <wsdl:part name="parameters" element="tns:DecryptEmployeeID" />
+  </wsdl:message>
+  <wsdl:message name="DecryptEmployeeIDSoapOut">
+    <wsdl:part name="parameters" element="tns:DecryptEmployeeIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="WorklineValidUserHttpGetIn">
+    <wsdl:part name="Empid" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WorklineValidUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpGetIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserLoginData" />
+  </wsdl:message>
+  <wsdl:message name="GetPayslipUrlHttpGetIn">
+    <wsdl:part name="Empid" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPayslipUrlHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCPLSSOUrlHttpGetIn" />
+  <wsdl:message name="GetCPLSSOUrlHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SetResignInfoHttpGetIn">
+    <wsdl:part name="Empid" type="s:string" />
+    <wsdl:part name="Resigndate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetResignInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="EncryptEmployeeIDHttpGetIn">
+    <wsdl:part name="Empid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptEmployeeIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptEmployeeIDHttpGetIn">
+    <wsdl:part name="EncryptedEmpid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptEmployeeIDHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="WorklineValidUserHttpPostIn">
+    <wsdl:part name="Empid" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="WorklineValidUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpPostIn">
+    <wsdl:part name="employeeid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UserDetailsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfUserLoginData" />
+  </wsdl:message>
+  <wsdl:message name="GetPayslipUrlHttpPostIn">
+    <wsdl:part name="Empid" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPayslipUrlHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCPLSSOUrlHttpPostIn" />
+  <wsdl:message name="GetCPLSSOUrlHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SetResignInfoHttpPostIn">
+    <wsdl:part name="Empid" type="s:string" />
+    <wsdl:part name="Resigndate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SetResignInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="EncryptEmployeeIDHttpPostIn">
+    <wsdl:part name="Empid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EncryptEmployeeIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptEmployeeIDHttpPostIn">
+    <wsdl:part name="EncryptedEmpid" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DecryptEmployeeIDHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WorklineServiceSoap">
+    <wsdl:operation name="WorklineValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid Workline User By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:WorklineValidUserSoapIn" />
+      <wsdl:output message="tns:WorklineValidUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsSoapIn" />
+      <wsdl:output message="tns:UserDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">GetPaySlipURL</wsdl:documentation>
+      <wsdl:input message="tns:GetPayslipUrlSoapIn" />
+      <wsdl:output message="tns:GetPayslipUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get CPL SSO URL</wsdl:documentation>
+      <wsdl:input message="tns:GetCPLSSOUrlSoapIn" />
+      <wsdl:output message="tns:GetCPLSSOUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set Resign Information and Email deactivation.</wsdl:documentation>
+      <wsdl:input message="tns:SetResignInfoSoapIn" />
+      <wsdl:output message="tns:SetResignInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Encrypted EmployeeID</wsdl:documentation>
+      <wsdl:input message="tns:EncryptEmployeeIDSoapIn" />
+      <wsdl:output message="tns:EncryptEmployeeIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Decrypted EmployeeID</wsdl:documentation>
+      <wsdl:input message="tns:DecryptEmployeeIDSoapIn" />
+      <wsdl:output message="tns:DecryptEmployeeIDSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WorklineServiceHttpGet">
+    <wsdl:operation name="WorklineValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid Workline User By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:WorklineValidUserHttpGetIn" />
+      <wsdl:output message="tns:WorklineValidUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsHttpGetIn" />
+      <wsdl:output message="tns:UserDetailsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">GetPaySlipURL</wsdl:documentation>
+      <wsdl:input message="tns:GetPayslipUrlHttpGetIn" />
+      <wsdl:output message="tns:GetPayslipUrlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get CPL SSO URL</wsdl:documentation>
+      <wsdl:input message="tns:GetCPLSSOUrlHttpGetIn" />
+      <wsdl:output message="tns:GetCPLSSOUrlHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set Resign Information and Email deactivation.</wsdl:documentation>
+      <wsdl:input message="tns:SetResignInfoHttpGetIn" />
+      <wsdl:output message="tns:SetResignInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Encrypted EmployeeID</wsdl:documentation>
+      <wsdl:input message="tns:EncryptEmployeeIDHttpGetIn" />
+      <wsdl:output message="tns:EncryptEmployeeIDHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Decrypted EmployeeID</wsdl:documentation>
+      <wsdl:input message="tns:DecryptEmployeeIDHttpGetIn" />
+      <wsdl:output message="tns:DecryptEmployeeIDHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WorklineServiceHttpPost">
+    <wsdl:operation name="WorklineValidUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Check Valid Workline User By passing Username and password.</wsdl:documentation>
+      <wsdl:input message="tns:WorklineValidUserHttpPostIn" />
+      <wsdl:output message="tns:WorklineValidUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get User Details Like Name,Email,Phone</wsdl:documentation>
+      <wsdl:input message="tns:UserDetailsHttpPostIn" />
+      <wsdl:output message="tns:UserDetailsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">GetPaySlipURL</wsdl:documentation>
+      <wsdl:input message="tns:GetPayslipUrlHttpPostIn" />
+      <wsdl:output message="tns:GetPayslipUrlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get CPL SSO URL</wsdl:documentation>
+      <wsdl:input message="tns:GetCPLSSOUrlHttpPostIn" />
+      <wsdl:output message="tns:GetCPLSSOUrlHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Set Resign Information and Email deactivation.</wsdl:documentation>
+      <wsdl:input message="tns:SetResignInfoHttpPostIn" />
+      <wsdl:output message="tns:SetResignInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Encrypted EmployeeID</wsdl:documentation>
+      <wsdl:input message="tns:EncryptEmployeeIDHttpPostIn" />
+      <wsdl:output message="tns:EncryptEmployeeIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Decrypted EmployeeID</wsdl:documentation>
+      <wsdl:input message="tns:DecryptEmployeeIDHttpPostIn" />
+      <wsdl:output message="tns:DecryptEmployeeIDHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WorklineServiceSoap" type="tns:WorklineServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WorklineValidUser">
+      <soap:operation soapAction="http://cplworkline.org/WorklineValidUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap:operation soapAction="http://cplworkline.org/UserDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <soap:operation soapAction="http://cplworkline.org/GetPayslipUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <soap:operation soapAction="http://cplworkline.org/GetCPLSSOUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <soap:operation soapAction="http://cplworkline.org/SetResignInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <soap:operation soapAction="http://cplworkline.org/EncryptEmployeeID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <soap:operation soapAction="http://cplworkline.org/DecryptEmployeeID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WorklineServiceSoap12" type="tns:WorklineServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="WorklineValidUser">
+      <soap12:operation soapAction="http://cplworkline.org/WorklineValidUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <soap12:operation soapAction="http://cplworkline.org/UserDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <soap12:operation soapAction="http://cplworkline.org/GetPayslipUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <soap12:operation soapAction="http://cplworkline.org/GetCPLSSOUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <soap12:operation soapAction="http://cplworkline.org/SetResignInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <soap12:operation soapAction="http://cplworkline.org/EncryptEmployeeID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <soap12:operation soapAction="http://cplworkline.org/DecryptEmployeeID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WorklineServiceHttpGet" type="tns:WorklineServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="WorklineValidUser">
+      <http:operation location="/WorklineValidUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <http:operation location="/UserDetails" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <http:operation location="/GetPayslipUrl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <http:operation location="/GetCPLSSOUrl" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <http:operation location="/SetResignInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <http:operation location="/EncryptEmployeeID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <http:operation location="/DecryptEmployeeID" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WorklineServiceHttpPost" type="tns:WorklineServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="WorklineValidUser">
+      <http:operation location="/WorklineValidUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserDetails">
+      <http:operation location="/UserDetails" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPayslipUrl">
+      <http:operation location="/GetPayslipUrl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCPLSSOUrl">
+      <http:operation location="/GetCPLSSOUrl" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetResignInfo">
+      <http:operation location="/SetResignInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EncryptEmployeeID">
+      <http:operation location="/EncryptEmployeeID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecryptEmployeeID">
+      <http:operation location="/DecryptEmployeeID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WorklineService">
+    <wsdl:port name="WorklineServiceSoap" binding="tns:WorklineServiceSoap">
+      <soap:address location="http://192.168.16.43/CPLService/WorklineService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WorklineServiceSoap12" binding="tns:WorklineServiceSoap12">
+      <soap12:address location="http://192.168.16.43/CPLService/WorklineService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WorklineServiceHttpGet" binding="tns:WorklineServiceHttpGet">
+      <http:address location="http://192.168.16.43/CPLService/WorklineService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WorklineServiceHttpPost" binding="tns:WorklineServiceHttpPost">
+      <http:address location="http://192.168.16.43/CPLService/WorklineService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
