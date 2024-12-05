@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MobileReimbursement.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MobileReimbursement" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx</Value>
+    </Setting>
+    <Setting Name="MobileReimbursement_SuccessfactorOdataServiceReference_SuccessfactorOdataService" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://192.168.16.43/CPLService/SuccessfactorOdataService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
