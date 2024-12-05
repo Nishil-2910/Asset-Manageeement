@@ -1,0 +1,77 @@
+﻿@using MobileReimbursement.BusinessClass;
+@using MobileReimbursement.Controllers;
+<script type="text/javascript">
+    function Reminder() {
+        var Reqno = @ViewBag.Reqno
+        $.ajax({
+            url: "../Asset/RequestReminder?Reqno=" + Reqno,
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                if (a.MessageCode == "-1") {
+                    ShowError(a.message);
+                    return false;
+                }
+                else {
+                    ShowSuccess(a.message);
+                }
+            }, error: function (a) { alert(a) }
+        });
+    }
+</script>
+<div id="dialog-status" class="ui-dialog-content ui-widget-content" style="width: auto; min-height: 0px; max-height: none; height: auto;">
+    <form class="form-horizontal" id="frm_apprequest" name="frm_apprequest" method="post" action="" novalidate="novalidate">
+        <input type="hidden" id="hdn_action" name="hdn_action" value="@ViewBag.action" />
+        <div class="widget-body">
+            <div class="widget-main">
+                <table width="90%" border="1">
+                    <tbody>
+                        <tr>
+                            <td style="font: bold">Action By</td>
+                            <td>Level</td>
+                            <td>Date / Time</td>
+                            <td>Status</td>
+                            <td>Remarks</td>
+                            @if (ViewBag.action == "selfRequest")
+                            {
+                                <td>Reminder</td>
+                            }
+                        </tr>
+                        @{
+                            List<am_item_request> objlist = new List<am_item_request>();
+                            String Reqno = ViewBag.Reqno != null ? Convert.ToString(ViewBag.Reqno) : string.Empty;
+                            objlist = AssetController.AssetHistory(Reqno);
+                            foreach (var item in objlist)
+                            {
+                            <tr>
+                                <td>@item.Vempname</td>
+                                <td>@item.Level</td>
+                                <td>@item.ApprovalDate</td>
+                                <td>@item.Statusname</td>
+                                <td>@item.Vreason</td>
+                                @if (item.Nstatus == 0 && item.Level != "Requester")
+                                {
+                                    if (ViewBag.action == "selfRequest")
+                                    {
+                                    <td align='center'>
+                                        <img src='~/images/reminder.png' style='cursor: pointer' title='Send Reminder' height='20' width='25' onclick='Reminder()' /></td>
+                                    }
+                                }
+                                else
+                                {
+                                    if (ViewBag.action == "selfRequest")
+                                    {
+                                    <td align='center'></td>
+                                    }
+                                }
+                            </tr>   
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

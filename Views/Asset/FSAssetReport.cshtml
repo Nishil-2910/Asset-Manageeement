@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = Layout;
+}
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $("#drp_status").change(function () {
+    //        var val = $("#drp_status").val();
+    //        if (val != "2") {
+    //            $("#div_fdate").hide();
+    //            $("#div_tdate").hide();
+    //        } else {
+    //            $("#div_fdate").show();
+    //            $("#div_tdate").show();
+    //        }
+    //    });
+    //});
+    $.validator.addMethod("reqtxt_fromdate", function (value, element) {
+        if ($("#drp_status").val() == "2") {
+            if ($("#txt_fromdate").val().length <= 0)
+                return false;
+            else
+                return true;
+        }
+        else {
+            return true;
+        }
+    }, 'Please Enter From Date.');
+    $.validator.addMethod("reqtxt_todate", function (value, element) {
+        if ($("#drp_status").val() == "2") {
+            if ($("#txt_todate").val().length <= 0)
+                return false;
+            else
+                return true;
+        }
+        else {
+            return true;
+        }
+    }, 'Please Enter To Date.');
+    $.validator.addMethod("reqtwo_date", function (value, element) {
+        if ($("#txt_fromdate").val().length > $("#txt_todate").val().length)
+            return false;
+        else
+            return true;
+    }, 'To date must be less then from date');
+    function SubmitRequest() {
+        var formid = 'frm_AssetReport';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var objurl = '@Url.Content("~/Asset/FSAssetReport")';
+            objurl += "?status=" + $("#drp_status").val() + "&fdate=" + $("#txt_fromdate").val() + "&tdate=" + $("#txt_todate").val()
+            window.open(objurl);
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                txt_fromdate: {
+                    reqtxt_fromdate: true
+                },
+                txt_todate: {
+                    reqtxt_todate: true
+                }
+            },
+            messages: {
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+@using (Html.BeginForm("FSAssetReport", "Asset", FormMethod.Post, new { name = "frm_AssetReport", id = "frm_AssetReport", novalidate = "novalidate", @class = "form-horizontal" }))
+{
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>FS Asset Report
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+
+                @*<div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="drp_status">Asset Status : </label>
+
+                        <div class="col-xs-12 col-sm-5">
+                            <div class="clearfix">
+                                <select id="drp_status" name="drp_status" class="select2 col-xs-12 col-sm-9" data-placeholder="Click to Choose Asset Status..." aria-hidden="true">
+                                    <option value="3">All</option>
+                                    <option value="1">Active</option>
+                                    <option value="2">Allocated</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="form-group" id="div_fdate">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">From Date : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <input class="date-picker col-xs-12 col-sm-9" id="txt_fromdate" name="txt_fromdate" type="text" data-date-format="dd-M-yyyy" value="">
+                            <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter From Date in DD/MM/YYYY format"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="div_tdate">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">To Date : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <input class="date-picker col-xs-12 col-sm-9" id="txt_todate" name="txt_todate" type="text" data-date-format="dd-M-yyyy" value="">
+                            <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter To Date in DD/MM/YYYY format"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                        <div class="clearfix">
+                            <button id="btn_download" name="btn_download" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="SubmitRequest();"><i class="ace-icon fa fa-file-excel-o icon-on-right"></i>&nbsp; Download</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("[data-rel=tooltip]").tooltip(); $('.date-picker').datepicker({ autoclose: true, todayHighlight: true }).next().on(ace.click_event, function () { $(this).prev().focus(); });
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

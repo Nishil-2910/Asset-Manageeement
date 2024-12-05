@@ -1,0 +1,368 @@
+﻿@{
+    ViewBag.Title = Layout;
+    String action = ViewContext.RouteData.Values["action"].ToString();
+}
+@*<script src="~/Scripts/jQuery.MobileReimbursement.js"></script>*@
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#div_allocation").hide();
+        BindItem();
+
+        var HOD = document.getElementById('lbl_hod').innerHTML;
+        var HOD1 = HOD.substring(0, 7);
+        $("#drp_hod").val(HOD1);
+
+        LoadGridData();
+    });
+    function enabled() {
+        if ($("#drp_allocation").val() == "2") {
+            $("#div_allocation").show();
+        }
+        else {
+            $("#div_allocation").hide();
+        }
+    }
+    function SubmitRequest() {
+        var formid = 'frm_SelfAssetRequest';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("AssetRequest", "Asset")';
+            $("#" + formid).ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                        $("#refresh_jqTable2").click();
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Asset Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                drp_item: {
+                    required: true
+                },
+                txt_remarks: {
+                    required: true
+                }
+            },
+            messages: {
+                drp_item: {
+                    required: "Please Select Item"
+                },
+                txt_remarks: {
+                    required: "Please Enter Remarks"
+                }
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+    function LoadGridData() {
+        var action = '@action.ToString()';
+        if (action == "selfRequest")
+            $("#hdn_self").val(1);
+        else
+            $("#hdn_self").val(2);
+        
+        var objurl = '@Url.Content("~/Asset/GetAssetReqListJQGrid")' + "?Self=" + $("#hdn_self").val();
+        var jqTable = '#jqTable2';
+        var jqTablePager = '#jqTablePager2';
+        var objcolNames = ['Action', 'Request No', 'Request For', 'Item', 'HOD', 'Finance Controller'];
+        var objcolModel = [
+                            {
+                                name: 'Action', index: 'Action', width: 130, formatter: function (cellvalue, options, rowObject) {
+                                    return "<div title=\"History\" style=\"float:left;cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" onclick=\"ViewHistory('" + rowObject[1] + "'); \" id=\"jEditButton_1\"><span class=\"ui-icon fa fa-th-large fa-1x bigger-120 blue\"></span></div><div title=\"Edit\" style=\"float:left;cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" onclick=\"FillAssetDetail('" + rowObject[1] + "'); \" id=\"jEditButton_1\"><span class=\"ace-icon fa fa-pencil blue bigger-125\"></span></div><div title=\"Delete\" style=\"float:left; cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" id=\"jDeleteButton_1\" onclick=\"AssetRequestDelete('" + rowObject[1] + "'); \" title=\"Delete\">&nbsp;&nbsp;<span class=\"ace-icon fa fa-trash-o bigger-120 red\"></span></div>";
+                                }
+                            },
+                            { name: 'Nrequestno', index: 'Nrequestno', width: 130 },
+                            { name: 'RequestFor', index: 'RequestFor', width: 150 },
+                            { name: 'ItemName', index: 'ItemName', width: 150 },
+                            { name: 'HODName', index: 'HODName', width: 250 },
+                            { name: 'FCName', index: 'FCName', width: 250 }
+                         ];
+        var objcaption = "Asset Request Details";
+        var objjqGridonSelectRow = null;
+        var objsortname = "Nrequestno";
+        var objsortorder = "asc";
+        jQuery(jqTable).jqGrid('clearGridData');
+        jQuery(jqTable).jqGrid('setGridParam', { url: objurl });
+        jQuery.GridList.Grid(jqTable, jqTablePager, objcolNames, objcolModel, objurl, objcaption, objsortname, objsortorder, objjqGridonSelectRow);
+        jQuery(jqTable).trigger('reloadGrid');
+    }
+    function FillAssetDetail(Reqno) {
+        $.ajax({
+            url: "../Asset/fetchAssetReqDetails?Reqno=" + Reqno,
+            type: 'post',
+            async: false,
+            contenttype: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (a) {
+                if (a.reqStatus == "-1") {
+                    showerror(a.reqMessage);
+                    return false;
+                }
+                else {
+                    $("#hdn_reqno").val(a.Nrequestno);
+                    $("#drp_company").val(a.Ncompany).change();
+                    $("#drp_division").val(a.Ndivision).change();
+                    $("#drp_unit").val(a.Nunit).change();
+                    $("#drp_department").val(a.Ndepartment).change();
+                    $("#drp_designation").val("0" + a.Ndesignation).change();
+                    $("#drp_location").val(a.Nlocation).change();
+                    $("#drp_reqtype").val(a.Nreqtype).change();
+                    $("#drp_item").val(a.Nitemno).change();
+                    $("#drp_allocation").val(a.Nallocationtype).change();
+                    $("#txt_empname").val(a.Vempname);
+                    $("#txt_joindate").val(a.Djoiningdate);
+                    $("#drp_hod").val(a.Vhodempno).change();
+                    $("#txt_remarks").val(a.Vreason);
+                    
+                    LoadGridData();
+                }
+            },
+            beforeSend: function () {
+                $('#ajaxStatus').show();
+            },
+            complete: function () {
+                $('#ajaxStatus').hide();
+            },
+            error: function (a) {
+                alert(a);
+                $('#ajaxStatus').hide();
+            }
+
+        });
+    }
+    function AssetRequestDelete(Reqno) {
+        $.ajax({
+            url: "../Asset/DeleteAssetRequest?Reqno=" + Reqno,
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                if (a.MessageCode == "-1") {
+                    ShowError(a.message);
+                    return false;
+                }
+                else {
+                    ShowSuccess(a.message);
+                    $("#refresh_jqTable2").click();
+                }
+            }, error: function (a) { alert(a) }
+        });
+    }
+    function ViewHistory(Reqno) {
+        var action = '@action.ToString()';
+        var objurl = '@Url.Content("~/Asset/AssetReqHistory")';
+        //var objdata = '{Reqno: "' + Reqno + '"}';
+        var objdata = "{'Reqno':'" + Reqno + "', 'action': '" + action + "'}";
+        var objbuttons = [
+                       {
+                           html: "<i class='ace-icon fa fa-times bigger-110 dark'></i><span style='color: #121212' accesskey='c'>&nbsp; Close</span>",
+                           "id": "btn_gvsearchgpno",
+                           "name": "btn_gvsearchgpno",
+                           "class": "btn",
+                           "style": "padding: 8px;",
+                           click: function () {
+                               $(this).dialog("close");
+                           }
+                       }
+        ];
+        jQuery.GridList.popuppartialview(objurl, objdata, "View History", "viewAssetRequest", objbuttons);
+    }
+</script>
+<form class="form-horizontal" id="frm_SelfAssetRequest" name="frm_SelfAssetRequest" method="post" action="" novalidate="novalidate">
+    <input type="hidden" id="hdn_reqno" name="hdn_reqno" value="0" />
+    <input type="hidden" id="drp_hod" name="drp_hod" value="" />
+    <input type="hidden" id="hdn_self" name="hdn_self" value="" />
+    <div class="row">
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Asset Request
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="container-fluid shadow">
+                            <div class="row">
+                                <div id="valErr" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                                </div>
+                                <div id="valOk" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-success">Yay! ..</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_reqtype">Request For:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_reqtype" name="drp_reqtype" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Location..." aria-hidden="true">
+                                                    <option value="1">Replacement of Existing System</option>
+                                                    <option value="2" selected="selected">New System</option>
+                                                </select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_item">Item: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_item" name="drp_item" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Item..." aria-hidden="true"></select>
+                                            </div>
+                                            <span id="errId1" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_allocation">Allocation: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_allocation" name="drp_allocation" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Allocation..." aria-hidden="true" onchange="enabled();">
+                                                    <option value="1" selected="selected">Permanent</option>
+                                                    <option value="2">Temporary</option>
+                                                </select>
+                                            </div>
+                                            <span id="errId1" class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" id="div_allocation">
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-12 col-sm-3 no-padding-right">Until : </label>
+
+                                            <div class="col-xs-12 col-sm-5">
+                                                <div class="clearfix">
+                                                    <input class="date-picker col-xs-12 col-sm-9" id="txt_allocationdate" name="txt_allocationdate" type="text" data-date-format="dd-M-yyyy" value="">
+                                                    <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter From Date in DD/MM/YYYY format"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="lbl_hod">HOD: </label>
+                                            <div class="controls col-sm-9">
+                                                <label class="col-xs-7 col-sm-7" id="lbl_hod">@ViewBag.hod</label>
+                                            </div>
+                                            <span id="errId1" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_remarks">Remarks: </label>
+                                            <div class="controls col-sm-9">
+                                                <textarea class="col-xs-12 col-sm-15 limited" id="txt_remarks" name="txt_remarks" maxlength="100"></textarea>
+                                            </div>
+                                            <span id="errId1" class="error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                <div class="clearfix">
+                    <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="return SubmitRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box col-sm-12">
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="form-group">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="gv_AssetList">
+                                    <table id="jqTable2"></table>
+                                    <div id="jqTablePager2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="viewAssetRequest" class="form-horizontal" class="hide">
+        </div>
+        </div>
+        </div>
+        <script type="text/javascript">
+            function BindItem() {
+                $("#drp_item").empty();
+                var url = '@Url.Content("~/Asset/GetItem")';
+                $.ajax({
+                    type: "POST", url: url, datatype: "Json",
+                    success: function (t) {
+                        $("#drp_item").append('<option value="">Select Item</option>'),
+                            $.each(t, function (t, a) { $("#drp_item").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") })
+                    }
+                })
+            }
+        </script>
+</form>

@@ -1,0 +1,789 @@
+﻿@{
+    ViewBag.Title = "Assetallocation";
+    var regno = ViewBag.Reqno;
+    var empno = ViewBag.Empno;
+    string cLayout = "";
+    if ((regno != null && empno != null))
+    {
+        cLayout = "~/Views/Shared/_Layoutblk.cshtml";
+    }
+    else
+    {
+        cLayout = "~/Views/Shared/_Layout.cshtml";
+    }
+    Layout = cLayout;
+}
+<script>
+    function SubmitAllocationRequest() {
+        var formid = 'frm_assetAllocation';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("SubmitAllocationRequest", "Asset")';
+            $("#" + formid).ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                        $("#refresh_jqTable2").click();
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Asset DeAllocation Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                drp_allocate: {
+                    required: true
+                },
+                txt_allocationdate: {
+                    required: true
+                },
+                drp_compliance: {
+                    required: true
+                },
+                drp_Classification: {
+                    required: true
+                },
+                drp_domain: {
+                    required: true
+                },
+                drp_OS: {
+                    required: true
+                },
+                txt_remarks: {
+                    required: true
+                }
+            },
+            messages: {
+                drp_allocate: {
+                    required: "Please Select Employee."
+                },
+                txt_allocationdate: {
+                    required: "Please Enter Allocation Date."
+                },
+                drp_compliance: {
+                    required: "Please select GXP / NONGXP"
+                },
+                drp_Classification: {
+                    required: "Please select Classfication"
+                },
+                drp_domain: {
+                    required: "Please select Domain"
+                },
+                drp_OS: {
+                    required: "Please Select Operating System"
+                },
+                txt_remarks: {
+                    required: "Please Enter remarks"
+                }
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+<form class="form-horizontal" id="frm_assetAllocation" name="frm_assetAllocation" method="post" action="" novalidate="novalidate">
+    <input type="hidden" id="hdn_Empno" name="hdn_Empno" value="@ViewBag.Empno" />
+    <input type="hidden" id="hdn_reqno" name="hdn_reqno" value="@ViewBag.Reqno" />
+    <div class="widget-box col-sm-11">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Asset Allocation
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="container-fluid shadow">
+                            <div class="row">
+                                <div id="valErr" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                                </div>
+                                <div id="valOk" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-success">Yay! ..</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="field4">Allocate To:<span class="req"></span></label>
+                                            <div class="controls col-sm-9">
+
+                                                <div id="field4" class="input-group">
+                                                    <input type="text" id="txt_search" name="txt_search" class="form-control" data-role="lookup" data-parsley-errors-container="#errId1">
+                                                    <span class="input-group-addon" id="btn_search" name="btn_search"><span class="ace-icon-purple fa fa-search icon-on-right bigger-100"></span></span>
+                                                </div>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_allocate">Name:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_allocate" name="drp_allocate" class="form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Employee..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_department">Department:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_department" type="text" class="form-control k-textbox" data-role="text" name="txt_department" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_designation">Designation:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_designation" type="text" class="form-control k-textbox" data-role="text" name="txt_designation" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_location">Location:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_location" type="text" class="form-control k-textbox" data-role="text" name="txt_location" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_item">Item: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_item" name="drp_item" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Item..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_compliance">Gxp/Non GXP: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_compliance" name="drp_compliance" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Gxp/Non GXP..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label control-label-left col-sm-3" for="txt_specification">Specification: </label>
+                                                <div class="controls col-sm-9">
+
+                                                    <input id="txt_specification" type="text" class="form-control k-textbox" data-role="text" name="txt_specification" readonly="readonly" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_receipt">Receipt: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_receipt" name="drp_receipt" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Purchase Type..." aria-hidden="true">
+                                                    <option value="1">Company Purchase</option>
+                                                    <option value="2" selected="selected">Lease</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_serialno">Serial No: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_serialno" name="drp_serialno" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Serial No..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label control-label-left col-sm-3" for="drp_serialno">Serial No : <font color="red"> * </font></label>
+                                                <div class="controls col-sm-9">
+                                                    <select id="drp_serialno" name="drp_serialno" class="form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Serial No..." aria-hidden="true"></select>
+                                                    <span id="errId1" class="error"></span>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_hostname">Host Name: </label>
+                                            <div class="controls col-sm-9">
+
+                                                <input style="text-transform: uppercase" id="txt_hostname" type="text" class="form-control k-textbox limited" data-role="text" name="txt_hostname" maxlength="15" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_allocationdate">Allocation Date: </label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input class="date-picker col-xs-12 col-sm-9" id="txt_allocationdate" name="txt_allocationdate" type="text" data-date-format="dd/mm/yyyy" data-date-end-date="0d" value="">
+                                                    <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter Date in DD/MM/YYYY format"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_domain">Domain: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_domain" name="drp_domain" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Domain..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_OS">OS: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_OS" name="drp_OS" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose OS..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label control-label-left col-sm-3" for="txt_specification">Specification: </label>
+                                                <div class="controls col-sm-9">
+
+                                                    <input id="txt_specification" type="text" class="form-control k-textbox" data-role="text" name="txt_specification" readonly="readonly" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_Classification">Classification: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_Classification" name="drp_Classification" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Classification..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="chk_monitor">Do you Want to Allocate Monitor: </label>
+                                            <div class="controls col-sm-1">
+                                                <input id="chk_monitor" type="checkbox" class="form-control k-textbox" data-role="text" name="chk_monitor" onclick="EnabledMonitor();" value="Y" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="chk_printer">Do you Want to Allocate Printer: </label>
+                                            <div class="controls col-sm-1">
+                                                <input id="chk_printer" type="checkbox" class="form-control k-textbox" data-role="text" name="chk_printer" onclick="EnabledPrinter();" value="Y" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="div_monitor">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_item_monitor">Item: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_item_monitor" name="drp_item_monitor" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Item..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_serialno_monitor">Serial No: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_serialno_monitor" name="drp_serialno_monitor" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Serial No..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="div_printer">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_item_printer">Model: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_item_printer" name="drp_item_printer" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Model..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_serialno_printer">Serial No: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_serialno_printer" name="drp_serialno_printer" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Serial No..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="chk_monitor">Remarks: </label>
+                                            <div class="clearfix">
+                                                <textarea class="col-xs-12 col-sm-9 limited" id="txt_remarks" name="txt_remarks" maxlength="100"></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                                        <div class="clearfix">
+                                            <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="SubmitAllocationRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+
+    //$('#txt_search').keypress(function () {
+    //    if ($('#hdn_Empno').val() != "") {
+    //        $('#txt_search').val($('#hdn_Empno').val());
+    //        BindEmployee(Empno);
+    //    } else {
+    //        if ($('#txt_search').val().length > 5) {
+    //            BindEmployee($('#txt_search').val());
+    //        }
+    //    }
+    //});
+
+    //Bind Employee Details
+    function BindEmployee(Search) {
+        $("#drp_allocate").empty();
+        var url = '@Url.Content("~/Asset/GetAllocationEmployee")';
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: url,
+            data: { Search: Search },
+            datatype: "Json",
+            success: function (result) {
+                /*$("#drp_allocate").append('<option value="">Select Employee</option>'),
+                    $.each(result, function (result, a) { $("#drp_allocate").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+                $("#drp_allocate").change();*/
+
+
+                var DrpObj = document.getElementById("drp_allocate");
+                for (var i = 0; i < DrpObj.length; i = i) {
+                    DrpObj.remove(i);
+                }
+                //var opt = document.createElement("option");
+                //DrpObj.options.add(opt);
+
+                var opt1 = document.createElement("option");
+                DrpObj.options.add(opt1);
+                opt1.text = "---Select---";
+                opt1.value = "0";
+
+                $.each(result, function (result, a) {
+                    var opt = document.createElement("option");
+                    DrpObj.options.add(opt);
+                    opt.text = a.Drptext;
+                    opt.value = a.Drpvalu;
+                });
+                $("#drp_allocate").val("0").change();
+            }
+        });
+    }
+    function BindEmployeeDetails(Empno) {
+        $.ajax({
+            url: "../Asset/GetAllocationEmployeeDetails?Empno=" + Empno,
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                $("#txt_department").val(a.DEPTNAME);
+                $("#txt_designation").val(a.DESIGNATION);
+                $("#txt_location").val(a.Locationname);
+            }, error: function (a) { alert(a) }
+        });
+    }
+
+    //Bind Hostname with SerialNo
+    function BindHostname(Vserialno) {
+        $("#txt_hostname").val('');
+        $.ajax({
+            url: "../Asset/GetHostnameDetails?Vserialno=" + Vserialno,
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                if (a.Hostname == null) {
+                    $("#txt_hostname").prop("readonly", false);
+                }
+                else {
+                    $("#txt_hostname").prop("readonly", true);
+                    $("#txt_hostname").val(a.Hostname);
+                }
+            }, error: function (a) { alert(a) }
+        });
+    }
+
+    $('#drp_serialno').change(function () {
+        BindHostname($('#drp_serialno').val());
+    });
+
+    //Bind Laptop / Desktop
+    function BindItem() {
+        $("#drp_item").empty();
+        var url = '@Url.Content("~/Asset/GetItemType")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_item").append('<option value="">Select Item</option>'),
+                    $.each(result, function (result, a) {
+                        var str = a.Drptext;
+                        var n = str.substring(0, 7);
+                        if (n != 'Monitor' && n!='Printer') {
+                            $("#drp_item").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>")
+                        }
+                    });
+            }
+        });
+    }
+    //Bind Monitor
+    function BindMonitor() {
+        $("#drp_item_monitor").empty();
+        var url = '@Url.Content("~/Asset/GetItemType")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_item_monitor").append('<option value="">Select Item</option>'),
+                    $.each(result, function (result, a) {
+                        var str = a.Drptext;
+                        var n = str.substring(0, 7);
+                        if (n == 'Monitor') {
+                            $("#drp_item_monitor").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>")
+                        }
+                    });
+            }
+        });
+    }
+
+    //Bind Printer
+    function BindPrinter() {
+        $("#drp_item_printer").empty();
+        var url = '@Url.Content("~/Asset/GetItemType")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_item_printer").append('<option value="">Select Item</option>'),
+                    $.each(result, function (result, a) {
+                        var str = a.Drptext;
+                        var n = str.substring(0, 7);
+                        if (n == 'Printer') {
+                            $("#drp_item_printer").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>")
+                        }
+                    });
+            }
+        });
+    }
+
+    //Bind Laptop / Desktop Serial No
+    @*function BindSerialNo(ItemNo, Receipt) {
+        $("#drp_serialno").empty();
+        var url = '@Url.Content("~/Asset/GetSerialNo")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { ItemNo: ItemNo, Receipt: Receipt },
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_serialno").append('<option value="">Select Serial No</option>'),
+                    $.each(result, function (result, a) { $("#drp_serialno").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+                $("#drp_serialno").select2();
+            }
+        });
+    }*@
+    function BindSerialNo(ItemNo, Receipt) {
+        $("#drp_serialno").empty();
+        var url = '@Url.Content("~/Asset/GetSerialNo")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { ItemNo: ItemNo, Receipt: Receipt },
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_serialno").append('<option value="">Select Serial No</option>'),
+                    $.each(result, function (result, a) { $("#drp_serialno").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+                //$("#drp_serialno").select2();
+            }
+        });
+    }
+    //Bind Monitor Serial No
+    function BindMonitorSerialNo(ItemNo, Receipt) {
+        $("#drp_serialno_monitor").empty();
+        var url = '@Url.Content("~/Asset/GetSerialNo")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { ItemNo: ItemNo, Receipt: Receipt },
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_serialno_monitor").append('<option value="">Select Serial No</option>'),
+                    $.each(result, function (result, a) { $("#drp_serialno_monitor").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    //Bind Printer Serial No
+    function BindPrinterSerialNo(ItemNo, Receipt) {
+        $("#drp_serialno_printer").empty();
+        var url = '@Url.Content("~/Asset/GetSerialNo")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { ItemNo: ItemNo, Receipt: Receipt },
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_serialno_printer").append('<option value="">Select Serial No</option>'),
+                    $.each(result, function (result, a) { $("#drp_serialno_printer").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    //Bind GXP / Non GXP dropdown
+    function GetGXP() {
+        $("#drp_compliance").empty();
+        var url = '@Url.Content("~/Asset/GetGXPList")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_compliance").append('<option value="">Select GXP / Non GXP</option>'),
+                    $.each(result, function (result, a) { $("#drp_compliance").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+     //Bind Asset Classfication dropdown
+    function GetClassfication() {
+        $("#drp_Classification").empty();
+        var url = '@Url.Content("~/Asset/GetClassfication")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_Classification").append('<option value="">Select Classification</option>'),
+                    $.each(result, function (result, a) { $("#drp_Classification").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    //Bind Domain dropdown
+    function BindDomain() {
+        $("#drp_domain").empty();
+        var url = '@Url.Content("~/Asset/GetDomain")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_domain").append('<option value="">Select Domain</option>'),
+                    $.each(result, function (result, a) { $("#drp_domain").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+    //Bind OS dropdown
+    function BindOS() {
+        $("#drp_OS").empty();
+        var url = '@Url.Content("~/Asset/GetOS")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_OS").append('<option value="">Select OS</option>'),
+                    $.each(result, function (result, a) { $("#drp_OS").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+    $(document).ready(function () {
+        var Empno = $('#hdn_Empno').val();
+        $('#div_monitor').hide();
+        $('#div_printer').hide();
+
+        if (Empno != "") {
+            $('#txt_search').val(Empno);
+            BindEmployee(Empno);
+            $('#drp_allocate').val(Empno);
+            BindEmployeeDetails(Empno);
+        } else {
+
+        }
+
+        $('#btn_search').click(function () {
+            if ($('#txt_search').val().length > 0) {
+                BindEmployee($('#txt_search').val());
+                //$('#drp_allocate').val($('#txt_search').val()).change();
+                //BindEmployeeDetails($('#drp_allocate').val());
+                //$('#drp_allocate').val($('#txt_search').val()).select;
+
+            }
+            else {
+                alert("Please Enter Employee No. / Name.");
+            }
+        });
+
+        $('#drp_allocate').change(function () {
+            if ($('#drp_allocate').val() != "0")
+                BindEmployeeDetails($('#drp_allocate').val());
+            else {
+                $("#txt_department").val("");
+                $("#txt_designation").val("");
+                $("#txt_location").val("");
+            }
+
+        });
+
+        $('#drp_receipt').change(function () {
+            BindSerialNo($('#drp_item').val(), $('#drp_receipt').val());
+        });
+
+        $('#drp_item').change(function () {
+            BindSerialNo($('#drp_item').val(), $('#drp_receipt').val());
+        });
+
+        BindItem();
+        BindMonitor();
+        BindPrinter();
+        GetGXP();
+        GetClassfication();
+        BindDomain();
+        BindOS();
+
+        $('#drp_item_monitor').change(function () {
+            BindMonitorSerialNo($('#drp_item_monitor').val(), $('#drp_receipt').val());
+        });
+
+        $('#drp_item_printer').change(function () {
+            BindPrinterSerialNo($('#drp_item_printer').val(), $('#drp_receipt').val());
+        });
+
+        //var select2dropdwon = ["#drp_allocate", "#drp_item", "#drp_serialno"];
+        //$.each(select2dropdwon, function (index, value) {
+        //    $(value).select2();
+        //});
+
+        var datecontrols = ["#txt_allocationdate"];
+
+        $.each(datecontrols, function (index, value) {
+            $(value).datepicker('setDaysOfWeekDisabled', [0]);
+        });
+    });
+    function EnabledMonitor() {
+        if ($('#chk_monitor').is(":checked")) {
+            $('#div_monitor').show();
+        } else {
+            $('#div_monitor').hide();
+        }
+    }
+
+    function EnabledPrinter() {
+        if ($('#chk_printer').is(":checked")) {
+            $('#div_printer').show();
+        } else {
+            $('#div_printer').hide();
+        }
+    }
+</script>

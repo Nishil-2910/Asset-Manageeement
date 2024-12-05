@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = Layout;
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadGridData();
+    });
+
+    function LoadGridData() {
+        var objurl = '@Url.Content("~/Asset/GetRequestStatusListJQGrid")';
+        var jqTable = '#jqTable1';
+        var jqTablePager = '#jqTablePager1';
+        var objcolNames = ['Req.No', 'Req.Date', 'Employee No', 'Employee Name', 'Location', 'Function Name', 'Asset Type', 'Req.Type', 'Req.for', 'Request for whom', 'Pending With','Remarks'];
+        var objcolModel = [
+                            { name: 'Nrequestno', index: 'Nrequestno', width: 50 },
+                            { name: 'Dinsertdate', index: 'Dinsertdate', width: 80 },
+                            { name: 'Vempno', index: 'Vempno', width: 90 },
+                            { name: 'Vempname', index: 'Vempname', width: 180 },
+                            { name: 'Locationname', index: 'Locationname', width: 100 },
+                            { name: 'DEPTNAME', index: 'DEPTNAME', width: 100 },
+                            { name: 'ItemName', index: 'ItemName', width: 80 },
+                            { name: 'NREQTYPENAME', index: 'ItNREQTYPENAME', width: 70 },
+                            { name: 'RequestFor', index: 'RequestFor', width: 60 },
+                            { name: 'Engname', index: 'Engname', width: 130 },
+                            { name: 'Statusname', index: 'Statusname', width: 90 },
+                            { name: 'Vreason', index: 'Vreason', width: 500 }
+        ];
+        var objcaption = "List of Laptop / Desktop Request Status";
+        var objjqGridonSelectRow = null;
+        var objsortname = "Nrequestno";
+        var objsortorder = "desc";
+        jQuery(jqTable).jqGrid('clearGridData');
+        jQuery(jqTable).jqGrid('setGridParam', { url: objurl });
+        jQuery.GridList.Grid(jqTable, jqTablePager, objcolNames, objcolModel, objurl, objcaption, objsortname, objsortorder, objjqGridonSelectRow);
+        jQuery(jqTable).trigger('reloadGrid');
+        jQuery(jqTable).navGrid(jqTablePager,
+            {
+                edit: false,
+                editicon: 'ace-icon fa fa-pencil blue',
+                add: false,
+                addicon: 'ace-icon fa fa-plus-circle purple',
+                del: false,
+                delicon: 'ace-icon fa fa-trash-o red',
+                search: false,
+                searchicon: 'ace-icon fa fa-search orange',
+                refresh: true,
+                refreshicon: 'ace-icon fa fa-refresh green',
+                view: false,
+                viewicon: 'ace-icon fa fa-search-plus grey',
+            },
+            {}, // settings for edit
+            {}, // settings for add
+            {}, // settings for delete
+            {
+                sopt: ['cn']
+                //sopt: ['eq', 'ne', 'cn', 'nc', 'bw', 'ew'] // Search options. Some options can be set on column level
+            }
+
+        )
+    }
+
+    $.validator.addMethod("txt_reqtwo_date", function (value, element) {
+        if ($("#txt_fromdate").val().length > $("#txt_todate").val().length)
+            return false;
+        else
+            return true;
+    }, 'To date must be less then from date');
+
+    function SubmitRequest() {
+        var formid = 'frm_AssetReqStatus';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var objurl = '@Url.Content("~/Asset/AssetRequestStatus")';
+            objurl += "?fdate=" + $("#txt_fromdate").val() + "&tdate=" + $("#txt_todate").val()
+            window.open(objurl);
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                txt_fromdate: {
+                    required: true
+                },
+                txt_todate: {
+                    required: true
+                }
+            },
+            messages: {
+                txt_fromdate: {
+                    required: "Please Enter From Date."
+                },
+                txt_todate: {
+                    required: "Please Enter To Date."
+                }
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+@using (Html.BeginForm("AssetRequestStatus", "Asset", FormMethod.Post, new { name = "frm_AssetReqStatus", id = "frm_AssetReqStatus", novalidate = "novalidate", @class = "form-horizontal" }))
+{
+    <div class="widget-box col-sm-12">
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="form-group">
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div id="gv_MaterialList">
+                                <table id="jqTable1"></table>
+                                <div id="jqTablePager1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Asset Request Status
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="form-group" id="div_fdate">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">From Date : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <input class="date-picker col-xs-12 col-sm-9" id="txt_fromdate" name="txt_fromdate" type="text" data-date-format="dd-M-yyyy" value="">
+                            <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter From Date in DD/MM/YYYY format"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="div_tdate">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">To Date : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <input class="date-picker col-xs-12 col-sm-9" id="txt_todate" name="txt_todate" type="text" data-date-format="dd-M-yyyy" value="">
+                            <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter To Date in DD/MM/YYYY format"></span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                        <div class="clearfix">
+                            <button id="btn_search" name="btn_search" type="submit" class="btn btn-purple btn-sm" data-last="Finish" onclick="SubmitRequest();"><i class="ace-icon fa fa-search icon-on-right bigger-110"></i>&nbsp; Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+}
+<script>
+    $(document).ready(function () {
+        $("[data-rel=tooltip]").tooltip(); $('.date-picker').datepicker({ autoclose: true, todayHighlight: true }).next().on(ace.click_event, function () { $(this).prev().focus(); });
+        ///$(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

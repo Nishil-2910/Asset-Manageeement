@@ -1,0 +1,599 @@
+﻿@{
+    Layout = Layout;
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        BindMake();
+        BindAssetType();
+        BindOS();
+        BindWarrantyAMC();
+        BindLocation();
+        BindVendor();
+        LoadGridData();
+    });
+
+    function BindMake() {
+        $("#drp_Product").empty();
+        var url = '@Url.Content("~/Asset/GetMakeDetails")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_make").append('<option value="">Select Make</option>'),
+                    $.each(result, function (result, a) { $("#drp_make").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function BindAssetType() {
+        $("#drp_assettype").empty();
+        var url = '@Url.Content("~/Asset/GetAssetType")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_assettype").append('<option value="">Select Asset Type</option>'),
+                    $.each(result, function (result, a) { $("#drp_assettype").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function BindOS() {
+        $("#drp_os").empty();
+        var url = '@Url.Content("~/Asset/GetOSDetails")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_os").append('<option value="">Select Operating System</option>'),
+                    $.each(result, function (result, a) { $("#drp_os").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function BindWarrantyAMC() {
+        $("#drp_Contracttypes").empty();
+        var url = '@Url.Content("~/Asset/GetWarrantyAMC")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_Contracttypes").append('<option value="">Select Contract Types</option>'),
+                    $.each(result, function (result, a) { $("#drp_Contracttypes").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function BindLocation() {
+        $("#drp_location").empty();
+        var url = '@Url.Content("~/Asset/GetLocation")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_location").append('<option value="">Select Location</option>'),
+                    $.each(result, function (result, a) { $("#drp_location").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function BindVendor() {
+        $("#drp_vendor").empty();
+        var url = '@Url.Content("~/Asset/GetVendor")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_vendor").append('<option value="">Select Vendor</option>'),
+                    $.each(result, function (result, a) { $("#drp_vendor").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function LoadGridData() {
+        var objurl = '@Url.Content("~/Asset/GetServerAssetListJQGrid")';
+        var jqTable = '#jqTable1';
+        var jqTablePager = '#jqTablePager1';
+        var objcolNames = ['Action', 'Srno', 'Make', 'Model', 'Serial Number', 'Asset Type', 'Host Name', 'Asset Tag', 'IP Address', 'CPU', 'CORE', 'RAM', 'OS', 'Warranty/AMC', 'Warranty/AMC Expire Date', 'PO Number', 'Vendor Name', 'Contact Person', 'Contact Number', 'Location', 'Sub Location', 'Port'];
+        var objcolModel = [
+                            {
+                                name: 'Action', index: 'Action', width: 55, formatter: function (cellvalue, options, rowObject) {
+                                    return "<div title=\"Edit\" style=\"float:left;cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" onclick=\"EditServerAsset('" + rowObject[1] + "'); \" id=\"jEditButton_1\"><span class=\"ace-icon fa fa-pencil blue bigger-120\"></span></div><div title=\"Delete\" style=\"float:left; cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" id=\"jEditButton_1\" onclick=\"DeleteServerAsset('" + rowObject[1] + "'); \" title=\"Delete\">&nbsp;&nbsp;<span class=\"ace-icon fa fa-trash-o bigger-120 red\"></span></div>";
+                                }
+                            },
+                            { name: 'NSRNO', index: 'NSRNO', width: 50 },
+                            { name: 'MAKENAME', index: 'MAKENAME', width: 50 },
+                            { name: 'VMODEL', index: 'VMODEL', width: 165 },
+                            { name: 'VSERIALNO', index: 'VSERIALNO', width: 130 },
+                            { name: 'ASSETTYPENAME', index: 'ASSETTYPENAME', width: 90 },
+                            { name: 'HOSTNAME', index: 'HOSTNAME', width: 150 },
+                            { name: 'TAG', index: 'TAG', width: 100 },
+                            { name: 'IPADDRESS', index: 'IPADDRESS', width: 100 },
+                            { name: 'CPU', index: 'CPU', width: 180 },
+                            { name: 'CORE', index: 'CORE', width: 40 },
+                            { name: 'RAM', index: 'RAM', width: 40 },
+                            { name: 'OSNAME', index: 'OSNAME', width: 160 },
+                            { name: 'WARRANTY_AMC_TYPE', index: 'WARRANTY_AMC_TYPE', width: 100 },
+                            { name: 'WARRANTY_AMC_DATE', index: 'WARRANTY_AMC_DATE', width: 100 },
+                            { name: 'PONO', index: 'PONO', width: 100 },
+                            { name: 'VENDORNAME', index: 'VENDORNAME', width: 100 },
+                            { name: 'CONTACTPERSON', index: 'CONTACTPERSON', width: 100 },
+                            { name: 'CONTACTNUMBER', index: 'CONTACTNUMBER', width: 100 },
+                            { name: 'LocationName', index: 'LocationName', width: 85 },
+                            { name: 'SUBLocationName', index: 'SUBLocationName', width: 110 },
+                            { name: 'PORT', index: 'PORT', width: 65 }
+        ];
+        var objcaption = "List of Server / Network Asset";
+        var objjqGridonSelectRow = null;
+        var objsortname = "NSRNO";
+        var objsortorder = "asc";
+        jQuery(jqTable).jqGrid('clearGridData');
+        jQuery(jqTable).jqGrid('setGridParam', { url: objurl });
+        jQuery.GridList.Grid(jqTable, jqTablePager, objcolNames, objcolModel, objurl, objcaption, objsortname, objsortorder, objjqGridonSelectRow);
+        jQuery(jqTable).trigger('reloadGrid');
+        jQuery(jqTable).navGrid(jqTablePager,
+            {
+                edit: false,
+                editicon: 'ace-icon fa fa-pencil blue',
+                add: false,
+                addicon: 'ace-icon fa fa-plus-circle purple',
+                del: false,
+                delicon: 'ace-icon fa fa-trash-o red',
+                search: false,
+                searchicon: 'ace-icon fa fa-search orange',
+                refresh: true,
+                refreshicon: 'ace-icon fa fa-refresh green',
+                view: false,
+                viewicon: 'ace-icon fa fa-search-plus grey',
+            },
+            {}, // settings for edit
+            {}, // settings for add
+            {}, // settings for delete
+            {
+                sopt: ['cn']
+                //sopt: ['eq', 'ne', 'cn', 'nc', 'bw', 'ew'] // Search options. Some options can be set on column level
+            }
+
+        ).navButtonAdd(jqTablePager, {
+            caption: "",
+            title: "Download Excel",
+            id: "btn_report",
+            buttonicon: "ace-icon fa fa-file-excel-o  bigger-140",
+            position: "last",
+            onClickButton: function (e) {
+                $("#btn_excel").click(
+                    ExporttoExcel()
+                 );
+            }
+        });
+    }
+
+    function ExporttoExcel() {
+        var formid = 'frm_ServerAsset';
+        var Form = document.getElementById(formid);
+        Form.action = '@Url.Action("ExporttoExcelServerAsset", "Asset")';
+        Form.submit();
+    }
+
+    function EditServerAsset(SRNO) {
+        $.ajax({
+            url: "../Asset/EditServerAsset?SRNO=" + SRNO,
+            type: 'post',
+            async: false,
+            contenttype: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (a) {
+                if (a.reqStatus == "-1") {
+                    showerror(a.reqMessage);
+                    return false;
+                }
+                else {
+                    $("#hdn_srno").val(a.NSRNO);
+                    $("#drp_make").val(a.MAKENO).change();
+                    $("#txt_model").val(a.VMODEL);
+                    $("#txt_serialno").val(a.VSERIALNO);
+                    $("#drp_assettype").val(a.ASSETTYPENO).change();
+                    $("#txt_hostname").val(a.HOSTNAME);
+                    $("#txt_assettag").val(a.TAG);
+                    $("#txt_ipaddress").val(a.IPADDRESS);
+                    $("#txt_cpu").val(a.CPU);
+                    $("#txt_core").val(a.CORE);
+                    $("#txt_ram").val(a.RAM);
+                    $("#drp_os").val(a.OSNO).change();
+                    $("#drp_Contracttypes").val(a.WARRANTY_AMC_NO).change();
+                    $("#txt_expireydate").val(a.WARRANTY_AMC_DATE);
+                    $("#txt_ponumber").val(a.PONO);
+                    $("#drp_location").val(a.Locationcode).change();
+                    $("#txt_sublocation").val(a.SUBLocationName);
+                    $("#drp_vendor").val(a.VENDORNO).change();
+                    $("#txt_port").val(a.PORT);
+                }
+            },
+            beforeSend: function () {
+                $('#ajaxStatus').show();
+            },
+            complete: function () {
+                $('#ajaxStatus').hide();
+            },
+            error: function (a) {
+                alert(a);
+                $('#ajaxStatus').hide();
+            }
+
+        });
+    }
+
+    function DeleteServerAsset(NSRNO) {
+        $.ajax({
+            url: "../Asset/DeleteServerAsset?NSRNO=" + NSRNO,
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                if (a.MessageCode == "-1") {
+                    ShowError(a.message);
+                    return false;
+                }
+                else {
+                    ShowSuccess(a.message);
+                    $("#refresh_jqTable1").click();
+                }
+            }, error: function (a) { alert(a) }
+        });
+    }
+
+    function SubmitRequest() {
+        var formid = 'frm_ServerAsset';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("SubmitServerAsset", "Asset")';
+            $("#" + formid).ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                        $("#refresh_jqTable1").click();
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Server / Network Asset Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                drp_make: {
+                    required: true
+                },
+                txt_model: {
+                    required: true
+                },
+                txt_serialno: {
+                    required: true
+                },
+                drp_assettype: {
+                    required: true
+                },
+                drp_os: {
+                    required: true
+                },
+                drp_Contracttypes: {
+                    required: true
+                },
+                drp_location: {
+                    required: true
+                }
+            },
+            messages: {
+                drp_make: {
+                    required: "Please select make"
+                },
+                txt_model: {
+                    required: "Please enter model details"
+                },
+                txt_serialno: {
+                    required: "Please enter serial no"
+                },
+                drp_assettype: {
+                    required: "Please select asset type"
+                },
+                drp_os: {
+                    required: "Please select operating system"
+                },
+                drp_Contracttypes: {
+                    required: "Please select Contract types"
+                },
+                drp_location: {
+                    required: "Please select location"
+                }
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+<form class="form-horizontal" id="frm_ServerAsset" name="frm_ServerAsset" method="post" action="" novalidate="novalidate">
+    <input type="hidden" id="hdn_srno" name="hdn_srno" value="0" />
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Server / Network Asset
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="container-fluid shadow">
+                            <div class="row">
+                                <div id="valErr" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                                </div>
+                                <div id="valOk" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-success">Yay! ..</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_make">Make:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_make" name="drp_make" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Make..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_model">Model:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_model" type="text" class="form-control k-textbox" data-role="text" name="txt_model" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_serialno">Serial Number:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_serialno" type="text" class="form-control k-textbox" data-role="text" name="txt_serialno" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_assettype">Asset Type:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_assettype" name="drp_assettype" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Asset Type..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_hostname">Host Name:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_hostname" type="text" class="form-control k-textbox" data-role="text" name="txt_hostname" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_assettag">Asset Tag:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_assettag" type="text" class="form-control k-textbox" data-role="text" name="txt_assettag" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_ipaddress">IP Address:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_ipaddress" type="text" class="form-control k-textbox" data-role="text" name="txt_ipaddress" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_cpu">CPU:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_cpu" type="text" class="form-control k-textbox" data-role="text" name="txt_cpu" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_core">CORE:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_core" type="text" class="form-control k-textbox" data-role="text" name="txt_core" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_ram">RAM:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_ram" type="text" class="form-control k-textbox" data-role="text" name="txt_ram" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_os">OS:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_os" name="drp_os" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose OS..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_Contracttypes">Contract Types:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_Contracttypes" name="drp_Contracttypes" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Contract Types..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_expireydate">Expiry Date: </label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input class="date-picker col-xs-12 col-sm-9" id="txt_expireydate" name="txt_expireydate" type="text" data-date-format="dd/mm/yyyy" data-date-end-date="0d" value="">
+                                                    <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter Date in DD/MM/YYYY format"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_ponumber">PO Number:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_ponumber" type="text" class="form-control k-textbox" data-role="text" name="txt_ponumber" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_location">Location:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_location" name="drp_location" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Location..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_sublocation">Sub Location:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_sublocation" type="text" class="form-control k-textbox" data-role="text" name="txt_sublocation" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_vendor">Vendor:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_vendor" name="drp_vendor" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Vendor Name..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_port">Port:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_port" type="text" class="form-control k-textbox" data-role="text" name="txt_port" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                <div class="clearfix">
+                    <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="return SubmitRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                    <button id="btn_excel" name="btn_excel" type="submit" class="btn btn-success btn-next" data-last="Finish" style="visibility: hidden">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box col-sm-12">
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="form-group">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="gv_MaterialList">
+                                    <table id="jqTable1"></table>
+                                    <div id="jqTablePager1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>

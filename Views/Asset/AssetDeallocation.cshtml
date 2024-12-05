@@ -1,0 +1,406 @@
+﻿@{
+    Layout = Layout;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btn_search').click(function () {
+            if ($('#txt_search').val().length > 0) {
+                BindEmployee($('#txt_search').val());
+            }
+            else {
+                alert("Please Enter Employee No. / Name.");
+            }
+        });
+
+        $('#drp_allocate').change(function () {
+            BindEmployeeDetails($('#drp_allocate').val());
+            BindAllocatedItems($('#drp_allocate').val());
+        });
+
+        $('#drp_item').change(function () {
+            BindAllocatedItemsDetails($('#drp_item').val());
+        });
+    });
+    function SubmitDeAllocationRequest() {
+        var formid = 'frm_assetDeAllocation';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("SubmitDeAllocationRequest", "Asset")';
+            $("#frm_assetDeAllocation").ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Asset DeAllocation Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                drp_allocate: {
+                    required: true
+                },
+                drp_item: {
+                    required: true
+                },
+                txt_deallocationdate: {
+                    required: true
+                },
+                txt_DeallocationRemarks: {
+                    required: true
+                },
+                drp_action: {
+                    required: true
+                }
+            },
+            messages: {
+                drp_allocate: {
+                    required: "Please Select Employee."
+                },
+                drp_item: {
+                    required: "Please Select DeAllocation Item."
+                },
+                txt_deallocationdate: {
+                    required: "Please Enter DeAllocation Date."
+                },
+                txt_DeallocationRemarks: {
+                    required: "Please Enter DeAllocation Remarks."
+                },
+                drp_action: {
+                    required: "Please Select Action."
+                }
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+<form class="form-horizontal" id="frm_assetDeAllocation" name="frm_assetDeAllocation" method="post" action="" novalidate="novalidate">
+    <div class="widget-box col-sm-11">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Asset DeAllocation
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="container-fluid shadow">
+                            <div class="row">
+                                <div id="valErr" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                                </div>
+                                <div id="valOk" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-success">Yay! ..</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="field4">DeAllocate From:<span class="req"></span></label>
+                                            <div class="controls col-sm-9">
+
+                                                <div id="field4" class="input-group">
+                                                    <input type="text" id="txt_search" name="txt_search" class="form-control" data-role="lookup" data-parsley-errors-container="#errId1">
+                                                    <span class="input-group-addon" id="btn_search"><span class="ace-icon-purple fa fa-search icon-on-right bigger-100"></span></span>
+                                                </div>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_name">Allocate To:</label>
+                                            <div class="controls col-sm-6 input-group">
+                                                <input id="txt_search" type="text" class="form-control k-textbox" data-role="text" name="txt_search" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-grey btn-sm" type="button" id="btn_search">
+                                                        <span class="ace-icon fa fa-search icon-on-right bigger-100"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>*@
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_allocate">Name:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_allocate" name="drp_allocate" class="form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Employee..." aria-hidden="true">
+                                                </select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_department">Department:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_department" type="text" class="form-control k-textbox" data-role="text" name="txt_department" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_designation">Designation:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_designation" type="text" class="form-control k-textbox" data-role="text" name="txt_designation" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_location">Location:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_location" type="text" class="form-control k-textbox" data-role="text" name="txt_location" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_item">Allocated Items: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_item" name="drp_item" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Transport..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_serialno">Serial No: </label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_serialno" type="text" class="form-control k-textbox" data-role="text" name="txt_serialno" readonly="readonly" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_hostname">Host Name: </label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_hostname" type="text" class="form-control k-textbox" data-role="text" name="txt_hostname" readonly="readonly" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_allocationdate">Allocation Date: </label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_allocationdate" type="text" class="form-control k-textbox" data-role="text" name="txt_allocationdate" readonly="readonly" data-parsley-errors-container="#errId6"><span id="errId6" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="chk_monitor">Allocation Remarks: </label>
+                                            <div class="clearfix">
+                                                <textarea class="col-xs-12 col-sm-9" id="txt_remarks" name="txt_remarks" readonly="readonly" maxlength="100"></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>*@
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_remarks">Allocation Remarks:</label>
+                                            <div class="controls col-sm-9">
+                                                <textarea id="txt_remarks" rows="3" class="form-control limited" data-role="textarea" name="txt_remarks" maxlength="100" data-parsley-errors-container="#errId8"></textarea><span id="errId8" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_action">Action: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_action" name="drp_action" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Transport..." aria-hidden="true">
+                                                    <option value="3" selected>DeAllocated</option>
+                                                    <option value="4">Stolen</option>
+                                                    <option value="5">Scrape</option>
+                                                    <option value="6">Damaged</option>
+                                                    <option value="7">Conk off</option>
+                                                    <option value="9">Retired Asset</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_allocationdate">DeAllocation Date: </label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input class="date-picker col-xs-12 col-sm-9" id="txt_deallocationdate" name="txt_deallocationdate" type="text" data-date-format="dd/mm/yyyy" data-date-end-date="0d" value="">
+                                                    <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter Date in DD/MM/YYYY format"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @* <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_DeallocationRemarks">DeAllocation Remarks: </label>
+                                            <div class="clearfix">
+                                                <textarea class="col-xs-12 col-sm-9 limited" id="txt_DeallocationRemarks" name="txt_DeallocationRemarks" maxlength="100"></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>*@
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_remarks">DeAllocation Remarks:</label>
+                                            <div class="controls col-sm-9">
+                                                <textarea id="txt_DeallocationRemarks" rows="3" class="form-control limited" data-role="textarea" name="txt_DeallocationRemarks" maxlength="100" data-parsley-errors-container="#errId8"></textarea><span id="errId8" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                                    <div class="clearfix">
+                                        <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="SubmitDeAllocationRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //Bind Employee Details
+    function BindEmployee(Search) {
+        $("#drp_allocate").empty();
+        var url = '@Url.Content("~/Asset/GetDeAllocationEmployee")';
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: url,
+            data: { Search: Search },
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_allocate").append('<option value="">Select Employee</option>'),
+                    $.each(result, function (result, a) { $("#drp_allocate").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+    function BindEmployeeDetails(Empno) {
+        $.ajax({
+            url: "../Asset/GetAllocationEmployeeDetails?Empno=" + Empno,
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                $("#txt_department").val(a.DEPTNAME);
+                $("#txt_designation").val(a.DESIGNATION);
+                $("#txt_location").val(a.Locationname);
+            }, error: function (a) { alert(a) }
+        });
+    }
+    function BindAllocatedItems(Empno) {
+        $("#drp_item").empty();
+        var url = '@Url.Content("~/Asset/GetAllocatedItems")';
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: url,
+            data: { Empno: Empno },
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_item").append('<option value="">Select Allocated Items</option>'),
+                    $.each(result, function (result, a) { $("#drp_item").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+    function BindAllocatedItemsDetails(Itemno) {
+        $.ajax({
+            url: "../Asset/GetAllocatedItemsDetails?Itemno=" + Itemno,
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                $("#txt_serialno").val(a.SerialNo);
+                $("#txt_hostname").val(a.Hostname);
+                $("#txt_allocationdate").val(a.Dallocationdate);
+                $("#txt_remarks").val(a.Vreason);
+            }, error: function (a) { alert(a) }
+        });
+    }
+</script>

@@ -1,0 +1,221 @@
+﻿@using MobileReimbursement.BusinessClass;
+@using MobileReimbursement.Controllers;
+<form class="form-horizontal" id="frm_viewReimbursementReq" name="frm_viewReimbursementReq" method="post" action="" novalidate="novalidate">
+    <input type="hidden" id="hdn_hodcount" name="hdn_hodcount" value="@ViewBag.HODCOUNT" />
+    <div class="widget-body">
+        <div class="widget-main">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_requestfor">Request For:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_requestfor" type="text" class="form-control k-textbox" data-role="text" name="txt_requestfor"  readonly="readonly" value="@ViewBag.RequestFor" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_item">Item:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_item" type="text" class="form-control k-textbox" data-role="text" name="txt_item"  readonly="readonly" value="@ViewBag.ItemName" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_allocation">Allocation:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_allocation" type="text" class="form-control k-textbox" data-role="text" name="txt_allocation"  readonly="readonly" value="@ViewBag.Allocation" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" id="div_empname">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_empname">Employee Name:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_empname" type="text" class="form-control k-textbox" data-role="text" name="txt_empname"  readonly="readonly" value="@ViewBag.Vempname" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="div_company">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_company">Company:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_company" type="text" class="form-control k-textbox" data-role="text" name="txt_company"  readonly="readonly" value="@ViewBag.CMPNAME" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_division">Division:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_division" type="text" class="form-control k-textbox" data-role="text" name="txt_division"  readonly="readonly" value="@ViewBag.DIVNAME" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="div_department">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_department">Department:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_department" type="text" class="form-control k-textbox" data-role="text" name="txt_department"  readonly="readonly" value="@ViewBag.DEPTNAME" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_designation">Designation:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_designation" type="text" class="form-control k-textbox" data-role="text" name="txt_designation"  readonly="readonly" value="@ViewBag.DESIGNATION" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="div_location">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_location">Location:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_location" type="text" class="form-control k-textbox" data-role="text" name="txt_location"  readonly="readonly" value="@ViewBag.Locationname" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_designation">Date of Joining:</label>
+                        <div class="controls col-sm-9">
+                            <input id="txt_designation" type="text" class="form-control k-textbox" data-role="text" name="txt_designation"  readonly="readonly" value="@ViewBag.Djoiningdate" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_requirement">Reason for Requirement:</label>
+                        <div class="controls col-sm-9">
+                            <textarea id="txt_requirement" rows="3" class="form-control limited" data-role="textarea" name="txt_requirement" readonly="readonly" maxlength="100" data-parsley-errors-container="#errId8">@ViewBag.Vreason</textarea><span id="errId8" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    <label class="control-label col-xs-12 col-sm-2 no-padding-right" for="chk_action">Action : </label>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="clearfix">
+                            <div class="radio">
+                                <label>
+                                    <input name="form-field-radio" type="radio" value="1" class="ace" id="chk_approve" />
+                                    <span class="lbl">&nbsp;&nbsp;Approve</span>
+                                </label>
+                                <label>
+                                    <input name="form-field-radio" type="radio" value="3" class="ace" id="chk_sendforcorrection" />
+                                    <span class="lbl">&nbsp;&nbsp;Send for correction</span>
+                                </label>
+                                <label>
+                                    <input name="form-field-radio" type="radio" value="2" class="ace" id="chk_reject" />
+                                    <span class="lbl">&nbsp;&nbsp;Reject</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="div_finance">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="drp_fcname">Finance Controller: </label>
+                        <div class="controls col-sm-9">
+                            <select id="drp_fcname" name="drp_fcname" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Finance Controller..." aria-hidden="true"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_remarks">Remarks:</label>
+                        <div class="controls col-sm-9">
+                            <textarea id="txt_remarks" rows="3" class="form-control limited" required="required" data-role="textarea" name="txt_remarks" maxlength="100" data-parsley-errors-container="#errId8"></textarea><span id="errId8" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#div_finance').hide();
+        $("input[name=form-field-radio]").on("change", function () {
+            if ($(this).val() == "1") {
+                $('#div_finance').show();
+            }
+            else {
+                $('#div_finance').hide();
+            }
+            if ($('#hdn_hodcount').val() == "0") {
+                $('#div_finance').hide();
+            }
+        });
+
+        if ($("#txt_empname").val() == "") {
+            $("#div_empname").hide();
+            $("#div_company").hide();
+            $("#div_department").hide();
+            $("#div_location").hide();
+        }
+        BindFC();
+    });
+    //Bind finance controller
+    function BindFC() {
+        $("#drp_fcname").empty();
+        var url = '@Url.Content("~/Asset/GetFinanceController")';
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: url,
+            //data: { Search: Search },
+            datatype: "Json",
+            success: function (result) {
+                //$("#drp_fcname").append('<option value="">Select Finance Controller</option>'),
+                    $.each(result, function (result, a) { $("#drp_fcname").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }   
+</script>

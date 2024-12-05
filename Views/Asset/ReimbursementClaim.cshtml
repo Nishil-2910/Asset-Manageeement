@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = Layout;
+    String action = ViewContext.RouteData.Values["action"].ToString();
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script type="text/javascript">
+    //function DtTimeDiff(sender, args) {
+    //    var startDate = Date.parse(document.getElementById('ctl00$MainContent$FromYearTxt').value);
+    //    var endDate = Date.parse(document.getElementById('ctl00$MainContent$ToYearTxt').value);
+    //    var timeDiff = endDate - startDate;
+
+    //    daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    //    if (daysDiff > 90) {
+    //        args.IsValid = false;
+    //    }
+    //    else {
+    //        args.IsValid = true;
+    //    }
+    //}
+
+    //if (number.value == "") {
+    //    window.alert("Error: Cell number must not be null.");
+    //    number.focus();
+    //    return false;
+    //}
+
+    //if (number.length != 10) {
+    //    window.alert("Phone number must be 10 digits.");
+    //    number.focus();
+    //    return false;
+    //}
+
+
+    function SubmitRequest() {
+        var formid = 'frm_ReimbursementClaim';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("SubmitLicenseProduct", "Asset")';
+            $("#" + formid).ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                        //$("#refresh_jqTable1").click();
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Mobile Master Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                drp_Month: {
+                    required: true
+                },
+                txt_mobileno: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                drp_Month: {
+                    required: "Please select month"
+                },
+                txt_mobileno: {
+                    required: "Please Enter Valid Mobile Numbers"
+                }
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+<form class="form-horizontal" id="frm_ReimbursementClaim" name="frm_ReimbursementClaim" method="post" action="" novalidate="novalidate">
+    <div class="widget-box col-sm-11">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Mobile Reimbursement claim
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+
+                    <div class="container-fluid shadow">
+                        <div class="row">
+                            <div id="valErr" class="row viewerror clearfix hidden">
+                                <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                            </div>
+                            <div id="valOk" class="row viewerror clearfix hidden">
+                                <div class="alert alert-success">Yay! ..</div>
+                            </div>
+
+                            
+                                <div class="form-group">
+                                    <label class="control-label control-label-left col-sm-3" for="txt_LicenseproductName">Bill Month:</label>
+                                    <div class="controls col-sm-3">
+                                        <select id="drp_Month" name="drp_Month" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Month..." aria-hidden="true">
+                                            <option value="">--Select--</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <label class="control-label control-label-left col-sm-3" for="txt_LicenseproductName">Bill Year:</label>
+                                <div class="controls col-sm-3">
+                                    <input id="txt_LicenseproductName" type="text" class="form-control k-textbox" data-role="text" name="txt_LicenseproductName" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                </div>
+                            </div>
+
+
+
+                        <div class="form-group">
+                            <label class="control-label control-label-left col-sm-3" for="txt_LicenseproductName">Bill Amount:</label>
+                            <div class="controls col-sm-3">
+                                <input id="txt_LicenseproductName" type="text" class="form-control k-textbox" data-role="text" name="txt_LicenseproductName" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label control-label-left col-sm-3" for="txt_LicenseproductName">Upload Bill:</label>
+                            <div class="controls col-sm-3">
+                                <input id="txt_LicenseproductName" type="text" class="form-control k-textbox" data-role="text" name="txt_LicenseproductName" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                <input type="file" id="file-upload">
+                                <button onclick="uploadfile()">Upload</button>  <a href="path/to/your/file.pdf" target="_blank">Download PDF</a>
+                            </div>
+                        </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_LicenseproductName">Mobile Number:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_LicenseproductName" type="text" class="form-control k-textbox" data-role="text" name="txt_LicenseproductName" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-12 col-sm-12" style="text-align: center;">
+            <div class="clearfix">
+                <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="return SubmitRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+</form>

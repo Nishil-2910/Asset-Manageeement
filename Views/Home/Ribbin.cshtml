@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Ribbin";
+}
+
+    <link type="text/css" href="../../themes/base/ui.all.css" rel="stylesheet" />
+    <link type="text/css" href="../../themes/base/ui.tabs.css" rel="stylesheet" />
+    <link type="text/css" href="../../style/ui.button.css" rel="stylesheet" />
+    <link type="text/css" href="../../style/ui.ribbon.css" rel="stylesheet" />
+    <link type="text/css" href="../../style/ui.orbButton.css" rel="stylesheet" />
+    <link type="text/css" href="../../style/ui.ribbon.style.msoffice.css" rel="stylesheet" />
+    <link type="text/css" href="../../style/msoffice-icons.css" rel="stylesheet" />
+
+    <script language="JavaScript" type="text/javascript" src="../../jquery-1.3.2.js"></script>
+
+    <script language="JavaScript" type="text/javascript" src="../../ui/ui.core.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../ui/ui.tabs.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../ui/ui.ribbon.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../ui/ui.orbButton.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../ui/ui.button.js"></script>
+    <script language="JavaScript" type="text/javascript">
+        jQuery(function ($) {
+            $('#log').dblclick(function () { $('#log').empty(); });
+
+            $('.ui-button').button({ useSlidingDoors: true });
+            $('#ribbon-msoffice').wrap('<div class="style-msoffice"></div>');
+
+            $('#ribbon, #ribbon-msoffice').ribbon({
+                collapsible: true
+            })
+        });
+    </script>
+
+    <div id="ribbon-msoffice" style="width:700px; border: 1px solid gray">
+        <div id="ribbon-msofficeContextData" style="display:none;"><label>Data</label></div>
+        <ul>
+            <li><a href="#ribbon-msofficeTabHome"><span><label>Home</label></span></a></li>
+            <li><a href="#ribbon-msofficeTabInsert"><span><label>Insert</label></span></a></li>
+            <li><a href="#ribbon-msofficeTabView"><span><label>View</label></span></a></li>
+        </ul>
+        <div id="ribbon-msofficeTabHome">
+            <ul>
+                <li id="groupClipboard_ribbon-msofficeTabHome">
+                    <div>
+                        <button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-large-button" id="ribbon-msofficeButtonPaste" title="Paste"><span class="ui-icon msoffice-icon-paste-32x32"></span><span class="ui-button-label">Paste</span></button>
+                        <ul class="ui-ribbon-element ui-ribbon-list">
+                            <li><button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-simple-button" id="ribbon-msofficeButtonCut" title="Cut"><span class="ui-icon msoffice-icon-cut-22x22"></span><span class="ui-button-label">Cut</span></button></li>
+                            <li><button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-simple-button" id="ribbon-msofficeButtonCopy" title="Copy"><span class="ui-icon msoffice-icon-copy-22x22"></span><span class="ui-button-label">Copy</span></button></li>
+                        </ul>
+                    </div>
+                    <h3><span>Clipboard</span></h3>
+                </li>
+                <li id="groupRows_ribbon-msofficeTabHome">
+                    <div>
+                        <ul class="ui-ribbon-element ui-ribbon-list">
+                            <li><button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-simple-button" id="ribbon-msofficeButtonAddRow" title="Add Row"><span class="ui-icon ui-icon-none"></span><span class="ui-button-label">Add Row</span></button></li>
+                            <li><button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-simple-button" id="ribbon-msofficeButtonRemoveRow" title="Remove Row"><span class="ui-icon ui-icon-none"></span><span class="ui-button-label">Remove Row</span></button></li>
+                        </ul>
+                    </div>
+                    <h3><span>Rows</span></h3>
+                </li>
+                <li id="groupColumns_ribbon-msofficeTabHome">
+                    <div>
+                        <ul class="ui-ribbon-element ui-ribbon-list">
+                            <li><button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-simple-button" id="ribbon-msofficeButtonAddColumn" title="Add Column"><span class="ui-icon ui-icon-none"></span><span class="ui-button-label">Add Column</span></button></li>
+                            <li><button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-simple-button" id="ribbon-msofficeButtonRemoveColumn" title="Remove Column"><span class="ui-icon ui-icon-none"></span><span class="ui-button-label">Remove Column</span></button></li>
+                        </ul>
+                    </div>
+                    <h3><span>Columns</span></h3>
+                </li>
+            </ul>
+        </div>
+        <div id="ribbon-msofficeTabInsert">
+            <ul>
+                <li id="groupSheet_ribbon-msofficeTabInsert">
+                    <div>
+                        <button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-large-button" id="ribbon-msofficeButtonNewSheet" title="New Sheet"><span class="ui-icon msoffice-icon-menu-new-32x32"></span><span class="ui-button-label">New Sheet</span></button>
+                        <button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-large-button" id="ribbon-msofficeButtonDeleteSheet" title="Delete Sheet"><span class="ui-icon msoffice-icon-delete-24x24""></span><span class="ui-button-label">Delete Sheet</span></button>
+                    </div>
+                    <h3><span>Sheet</span></h3>
+                </li>
+            </ul>
+        </div>
+        <div id="ribbon-msofficeTabView">
+            <ul>
+                <li id="groupZoom_ribbon-msofficeTabView">
+                    <div>
+                        <button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-large-button" id="ribbon-msofficeButtonZoomIn" title="Zoom In"><span class="ui-icon msoffice-icon-zoom-32x32"></span><span class="ui-button-label">Zoom In</span></button>
+                        <button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-large-button" id="ribbon-msofficeButtonZoomOut" title="Zoom Out"><span class="ui-icon msoffice-icon-zoom-32x32"></span><span class="ui-button-label">Zoom Out</span></button>
+                        <button class="ui-ribbon-element ui-ribbon-control ui-button ui-ribbon-large-button" id="ribbon-msofficeButtonZoom100" title="100%"><span class="ui-icon msoffice-icon-zoom100-32x32"></span><span class="ui-button-label">100%</span></button>
+                    </div>
+                    <h3><span>Scale</span></h3>
+                </li>
+            </ul>
+        </div>
+    </div>

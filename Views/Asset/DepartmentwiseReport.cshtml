@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = Layout;
+}
+<script type="text/javascript">
+   
+</script>
+@using (Html.BeginForm("DownloadReport", "Asset", FormMethod.Post, new { name = "frm_AssetReport", id = "frm_AssetReport", novalidate = "novalidate", @class = "form-horizontal" }))
+{
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Mobile Reimbursement Report
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+
+                <div class="form-group">
+                    <label class="control-label control-label-left col-sm-3" for="txt_LicenseproductName">Department:</label>
+                    <div class="controls col-sm-3">
+                        <select id="drp_Month" name="drp_Month" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Month..." aria-hidden="true">
+                            <option value="">--Select--</option>
+                            <option value="01">Finance</option>
+                            <option value="02">Chemical SBU</option>
+                            <option value="03">Taxation</option>
+                            <option value="04">Marketing</option>
+                            <option value="05">IT</option>
+                            <option value="06">Purchase</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="drp_status">Departmentwise Report Status : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <select id="drp_status" name="drp_status" class="select2 col-xs-12 col-sm-9" data-placeholder="Click to Choose Asset Status..." aria-hidden="true">
+                                <option value="3">All</option>
+                                <option value="1">Active</option>
+                                <option value="2">Allocated</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="div_fdate">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">From Date : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <input class="date-picker col-xs-12 col-sm-9" id="txt_fromdate" name="txt_fromdate" type="text" data-date-format="dd-M-yyyy" value="">
+                            <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter From Date in DD/MM/YYYY format"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" id="div_tdate">
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right">To Date : </label>
+
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="clearfix">
+                            <input class="date-picker col-xs-12 col-sm-9" id="txt_todate" name="txt_todate" type="text" data-date-format="dd-M-yyyy" value="">
+                            <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter To Date in DD/MM/YYYY format"></span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                        <div class="clearfix">
+                            <button id="btn_download" name="btn_download" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="SubmitRequest();"><i class="ace-icon fa fa-file-excel-o icon-on-right"></i>&nbsp; Download</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("[data-rel=tooltip]").tooltip(); $('.date-picker').datepicker({ autoclose: true, todayHighlight: true }).next().on(ace.click_event, function () { $(this).prev().focus(); });
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

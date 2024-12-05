@@ -1,0 +1,126 @@
+﻿@{
+    Layout = Layout;
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script>
+    function getEmployeeInfo() {
+      // debugger;
+        var Employee_Number = document.getElementById("Employee_Number").value;
+        var employees = {
+            1054320: {
+                Employee_Number : "1054320",
+                Name: "Kanan Dave",
+                Mobile_Number: "9726296416",
+                Eligible_Amount: "500",
+                Eligible_Month: "6",
+                Eligible_Year: "2023"
+            },
+        };
+
+        if (Employee_Number in employees) {
+            var employee = employees[Employee_Number];
+            document.getElementById("txt_Employee_Number").value = employee.Employee_Number;
+            document.getElementById("txt_Name").value = employee.Name;
+            document.getElementById("txt_Mobile_Number").value = employee.Mobile_Number;
+            document.getElementById("txt_Eligible_Amount").value = employee.Eligible_Amount;
+            document.getElementById("txt_Eligible_Month").value = employee.Eligible_Month;
+            document.getElementById("txt_Eligible_Year").value = employee.Eligible_Year;
+
+            // Show the employee details textboxes
+            document.getElementById("detailsContainer").style.display = "block";
+
+            document.getElementById("excelButton").style.display = "inline";
+        } else {
+            document.getElementById("Employee_Number").value = "Employee not found.";
+            document.getElementById("Name").value = "";
+            document.getElementById("Mobile_Number").value = "";
+            document.getElementById("Eligible_Amount").value = "";
+            document.getElementById("Eligible_Month").value = "";
+            document.getElementById("Eligible_Year").value = "";
+
+            // Hide the employee details textboxes
+            document.getElementById("detailsContainer").style.display = "none";
+
+            document.getElementById("excelButton").style.display = "none";
+        }
+    }
+
+</script>
+
+<style>
+    #detailsContainer {
+        display: none;
+    }
+</style>
+
+@using (Html.BeginForm("MobileMaster", "Reimbursement", FormMethod.Post, new { name = "frm_MobileMaster", id = "frm_MobileMaster", novalidate = "novalidate", @class = "form-horizontal" }))
+{
+    <input type="hidden" id="hdn_Licenseproductcode" name="hdn_Licenseproductcode" value="0" />
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Mobile Master
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                
+                <form>
+                    <label for="Employee_Number">Enter Employee Number:</label>
+                    <input type="text" id="Employee_Number" name="Employee_Number">
+                    <button type="button" onclick="getEmployeeInfo()">Get Info</button>
+                </form>
+
+                <div id="detailsContainer">
+                    <h3>Employee Details:</h3>                  
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_Employee_Number">Employee Number:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_Employee_Number" type="text" class="form-control k-textbox" data-role="text" name="txt_Employee_Number" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                    <br>                    
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_Name">Name:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_Name" type="text" class="form-control k-textbox" data-role="text" name="txt_Name" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                    <br>                   
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_Mobile_Number">Mobile Number:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_Mobile_Number" type="text" class="form-control k-textbox" data-role="text" name="txt_Mobile_Number" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_Eligible_Amount">Eligible Amount:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_Eligible_Amount" type="text" class="form-control k-textbox" data-role="text" name="txt_Eligible_Amount" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_Eligible_Month">Eligible Month:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_Eligible_Month" type="text" class="form-control k-textbox" data-role="text" name="txt_Eligible_Month" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="txt_Eligible_Year">Eligible Year:</label>
+                        <div class="controls col-sm-3">
+                            <input id="txt_Eligible_Year" type="text" class="form-control k-textbox" data-role="text" name="txt_Eligible_Year" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <button id="btn_download" name="btn_download" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="SubmitRequest();"><i class="ace-icon fa fa-file-excel-o icon-on-right"></i>&nbsp; Download</button>
+                
+                <div id="result"></div>
+                </div>
+            </div>
+        </div>
+
+}

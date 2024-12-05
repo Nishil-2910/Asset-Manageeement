@@ -1,0 +1,425 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Mobile Reimbursement :: Cadila PharmaCeuticals Limited</title>
+    <meta name="description" content="Master page" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery.gritter.min.css" />
+    <link rel="stylesheet" href="~/assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/Content/jquery.gritter.min.css" />
+    <link rel="stylesheet" href="~/assets/css/datepicker.min.css" />
+    @*<link rel="stylesheet" href="~/assets/css/ui.jqgrid-bootstrap.css" />
+        <link rel="stylesheet" href="~/assets/css/ui.jqgrid-bootstrap-ui.css" />*@
+    <link rel="stylesheet" href="~/assets/css/ui.jqgrid.min.css" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/assets/fonts/fonts.googleapis.com.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/assets/css/ace.min.css" class="ace-main-stylesheet"
+        id="main-ace-style" />
+    <!--[if lte IE 9]>
+			<link rel="stylesheet" href="~/assets/css/ace-part2.min.css" class="ace-main-styxlesheet" />
+		<![endif]-->
+    <!--[if lte IE 9]>
+		  <link rel="stylesheet" href="~/assets/css/ace-ie.min.css" />
+		<![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="~/Scripts/ace-extra.min.js" type="text/javascript"></script>
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+		<script src="~/Scripts/html5shiv.min.js"></script>
+		<script src="~/Scripts/respond.min.js"></script>
+		<![endif]-->
+    <!-- /.main-container -->
+    <!-- basic scripts -->
+    <!--[if !IE]> -->
+    <script src="~/Scripts/jquery.2.1.1.min.js" type="text/javascript"></script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+        <script src="~/Scripts/jquery.1.11.1.min.js"></script>
+       <!-- <![endif]-->
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='~/Scripts/jquery.min.js'>" + "<" + "/script>");
+    </script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+            <script type="text/javascript">
+                window.jQuery || document.write("<script src='~/Scripts/jquery1x.min.js'>"+"<"+"/script>");
+            </script>
+        <!-- <![endif]-->
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='~/Scripts/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- page specific plugin scripts -->
+    @*<script src="~/assets/js/bootstrap-datepicker.min.js"></script>
+		<script src="~/assets/js/jquery.jqGrid.min.js"></script>
+		<script src="~/assets/js/grid.locale-en.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/Scripts/additional-methods.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/jquery.jqGrid.5.1.1.min.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/jquery.jqGrid.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/grid.locale-en.js"></script>
+    <script type="text/javascript" src="~/Scripts/json2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.gritter.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootbox.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jqURL.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
+    <script type="text/javascript" src="~/Scripts/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="~/Scripts/MyScripts.js"></script>
+    <!-- ace scripts -->
+    <script src="~/Scripts/ace-elements.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/ace.min.js" type="text/javascript"></script>  
+    <script src="~/Scripts/select2.min.js" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+</head>
+@*<body class="no-skin" style="overflow: hidden;">*@
+<body class="no-skin" data-spy="scroll" data-target="#body" data-offset="20">
+    @{
+       
+        
+        if ((MobileReimbursement.Models.UserLoginData)Session["UserObject"] == null)
+        {
+            Session["LogOutMessage"] = "Session Expired. Login again.";
+            Response.Redirect("~/Home/Login");
+                
+        @RenderBody()  
+
+        }
+        else
+        {
+        
+        <div id="navbar" class="navbar navbar-default          ace-save-state">
+            <div class="navbar-container ace-save-state" id="navbar-container">
+                <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler"
+                    data-target="#sidebar">
+                    <span class="sr-only">Toggle sidebar</span> <span class="icon-bar"></span><span class="icon-bar">
+                    </span><span class="icon-bar"></span>
+                </button>
+                <div class="navbar-header pull-left">
+                   
+                    <a href="#" class="navbar-brand"><small><span class="white">Mobile</span> <span
+                        class="white" id="id-text2">Reimbursement</span> </small></a>
+                </div>
+                <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                    <ul class="nav ace-nav">
+                        <li class="purple dropdown-modal">@* <a data-toggle="dropdown" class="dropdown-toggle"
+                            href="#"><i class="ace-icon fa fa-bell icon-animated-bell"></i><span class="badge badge-important">
+                                8</span> </a>*@
+                            <ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+                                <li class="dropdown-header"><i class="ace-icon fa fa-exclamation-triangle"></i>8 Notifications
+                                </li>
+                                <li class="dropdown-content">
+                                    <ul class="dropdown-menu dropdown-navbar navbar-pink">
+                                        <li><a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left"><i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>New
+                                                    Comments </span><span class="pull-right badge badge-info">+12</span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="#"><i class="btn btn-xs btn-primary fa fa-user"></i>Bob just signed up
+                                            as an editor ... </a></li>
+                                        <li><a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left"><i class="btn btn-xs no-hover btn-success fa fa-shopping-cart">
+                                                </i>New Orders </span><span class="pull-right badge badge-success">+8</span>
+                                            </div>
+                                        </a></li>
+                                        <li><a href="#">
+                                            <div class="clearfix">
+                                                <span class="pull-left"><i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>Followers
+                                                </span><span class="pull-right badge badge-info">+11</span>
+                                            </div>
+                                        </a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-footer"><a href="#">See all notifications <i class="ace-icon fa fa-arrow-right">
+                                </i></a></li>
+                            </ul>
+                        </li>
+                        <li class="purple" id="newcallalert">@*<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
+								<li class="dropdown-header">
+									<i class="ace-icon fa fa-exclamation-triangle"></i>
+									8 Notifications
+								</li>
+
+								<li class="dropdown-content ace-scroll" style="position: relative;"><div class="scroll-track" style="display: none;"><div class="scroll-bar"></div></div><div class="scroll-content" style="max-height: 200px;">
+									<ul class="dropdown-menu dropdown-navbar navbar-pink">
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+														New Comments
+													</span>
+													<span class="pull-right badge badge-info">+12</span>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<i class="btn btn-xs btn-primary fa fa-user"></i>
+												Bob just signed up as an editor ...
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-success fa fa-shopping-cart"></i>
+														New Orders
+													</span>
+													<span class="pull-right badge badge-success">+8</span>
+												</div>
+											</a>
+										</li>
+
+										<li>
+											<a href="#">
+												<div class="clearfix">
+													<span class="pull-left">
+														<i class="btn btn-xs no-hover btn-info fa fa-twitter"></i>
+														Followers
+													</span>
+													<span class="pull-right badge badge-info">+11</span>
+												</div>
+											</a>
+										</li>
+									</ul>
+								</div></li>
+
+								<li class="dropdown-footer">
+									<a href="#">
+										See all notifications
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</li>
+							</ul>*@ </li>
+                        <li class="light-blue"><a data-toggle="dropdown" href="#" class="dropdown-toggle"
+                            aria-expanded="false"><span class="user-info"><small>Welcome,</small>
+                                @Html.Label("", ((MobileReimbursement.Models.UserLoginData)Session["UserObject"]).EMPNAME.ToString())
+                            </span><i class="ace-icon fa fa-caret-down"></i></a>
+                            <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                                <li class="divider"></li>
+                                <li><a accesskey="o" href="@Url.Action("Logout", "Home")"><i class="ace-icon fa fa-power-off">
+                                </i>Logout </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-container -->
+        </div>
+         
+        <div class="main-container ace-save-state" id="main-container">
+            <script type="text/javascript">
+                try { ace.settings.loadState('main-container') } catch (e) { }
+            </script>
+            <div id="sidebar" class="sidebar responsive ace-save-state">
+                <script type="text/javascript">
+                    try { ace.settings.loadState('sidebar') } catch (e) { }
+                </script>
+                @Html.Partial("_MenuLayout")
+                <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                    <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
+                        data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right">
+                    </i>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="main-content-inner">
+                    @*<div id="body" style="margin-top: 10px; max-height: 1000px; overflow: auto;">*@
+                    <div id="body" style="margin-top: 10px;">
+                        @RenderSection("featured", required: false)
+                          
+                        <section class="content-wrapper main-content clear-fix">
+                            @RenderBody()
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!-- /.main-content -->
+            <div class="footer">
+                <div class="footer-inner">
+                    <div class="footer-content">
+                        <span class="bigger-120">Designed and Developed by <span class="blue bolder">Cadila PharmaCeuticals Limited</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse" style="margin-right: 2%;
+                margin-bottom: 2%;"><i class="ace-icon fa fa-angle-double-up icon-only bigger-110">
+                </i></a>
+        </div>
+        <div class="tooltip top in" style="display: none;">
+            <div class="tooltip-inner">
+            </div>
+        </div>
+
+        <div id="ajaxStatus" style="position: relative; z-index: 9999;">
+            <div id="dv_BellCurve" style="position: fixed; visibility: visible; top: 0px; left: 0px;
+                width: 100%; height: 100%; background-color: gray; overflow: hidden; filter: alpha(opacity=70);
+                opacity: 0.7;">
+            </div>
+            <div id="dv_BellCurveData" style="position: fixed; visibility: visible; top: 0px;
+                left: 0px; width: 100%; height: 100%; text-align: center; vertical-align: middle;">
+                <div style="text-align: center; margin-top: 25%;">
+                    <img alt="" src="~/Images/loading3.gif" />
+                </div>
+            </div>
+        </div>
+		
+        @RenderSection("scripts", required: false)
+
+       
+
+        <script language="javascript">
+            $(document).ready(function () {
+                
+
+                $(document).ready(function () {
+                    $('#ajaxStatus').hide();
+
+                    $(document).ajaxStart(StartAjax);
+                    $(document).ajaxStop(EndAjax);
+
+                });
+                function StartAjax() {
+                    $('#ajaxStatus').show();
+                }
+                function EndAjax() {
+                    $('#ajaxStatus').hide();
+                }
+            });
+            jQuery(function ($) {
+                var $sidebar = $('.sidebar').eq(0);
+                if (!$sidebar.hasClass('h-sidebar')) return;
+
+                $(document).on('settings.ace.top_menu', function (ev, event_name, fixed) {
+                    if (event_name !== 'sidebar_fixed') return;
+
+                    var sidebar = $sidebar.get(0);
+                    var $window = $(window);
+
+                    //return if sidebar is not fixed or in mobile view mode
+                    var sidebar_vars = $sidebar.ace_sidebar('vars');
+                    if (!fixed || (sidebar_vars['mobile_view'] || sidebar_vars['collapsible'])) {
+                        $sidebar.removeClass('lower-highlight');
+                        //restore original, default marginTop
+                        sidebar.style.marginTop = '';
+
+                        $window.off('scroll.ace.top_menu')
+                        return;
+                    }
+
+
+                    var done = false;
+                    $window.on('scroll.ace.top_menu', function (e) {
+
+                        var scroll = $window.scrollTop();
+                        scroll = parseInt(scroll / 4); //move the menu up 1px for every 4px of document scrolling
+                        if (scroll > 17) scroll = 17;
+
+
+                        if (scroll > 16) {
+                            if (!done) {
+                                $sidebar.addClass('lower-highlight');
+                                done = true;
+                            }
+                        }
+                        else {
+                            if (done) {
+                                $sidebar.removeClass('lower-highlight');
+                                done = false;
+                            }
+                        }
+
+                        sidebar.style['marginTop'] = (17 - scroll) + 'px';
+                    }).triggerHandler('scroll.ace.top_menu');
+
+                }).triggerHandler('settings.ace.top_menu', ['sidebar_fixed', $sidebar.hasClass('sidebar-fixed')]);
+
+                $(window).on('resize.ace.top_menu', function () {
+                    $(document).triggerHandler('settings.ace.top_menu', ['sidebar_fixed', $sidebar.hasClass('sidebar-fixed')]);
+                });
+
+
+            });
+
+             
+            
+            function BindNewcalllog(data)
+            {
+                if (data.Rolecode != 0) {
+                                var control = "";
+                                 control +="<a data-toggle=\"dropdown\" class=\"dropdown-toggle\" href=\"#\" >";
+								control +="<i class=\"ace-icon fa fa-bell icon-animated-bell\" ></i>";
+								control += "<span class=\"badge badge-important\">" + data.Total + "</span>";
+								control += "</a>";
+								control += "<ul class=\"dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close\">";
+                                control +="<li class=\"dropdown-content ace-scroll\" style=\"position: relative;\"><div class=\"scroll-track\" style=\"display: none;\"><div class=\"scroll-bar\"></div></div><div class=\"scroll-content\" style=\"max-height: 200px;\">";
+                                control += "<ul class=\"dropdown-menu dropdown-navbar navbar-pink\">";
+                             
+                                    if (data.Rolename != "Department") {
+                                        control += "<li>";
+                                        control += "<a href=\"#\">";
+                                        control += "<div class=\"clearfix\">";
+                                        control += "<span class=\"pull-left\">";
+                                        control += "<i class=\"btn btn-xs no-hover btn-pink\"></i>";
+                                        control += " Calllog";
+                                        control += "</span>";
+                                        control += "<span class=\"pull-right badge badge-info\">" + data.Calllog + "</span>";
+                                        control += "</div>";
+                                        control += "</a>";
+                                        control += "</li>";
+                                    }
+
+                                    control += "<li>";
+                                    control += "<a href=\"#\">";
+                                    control += "<div class=\"clearfix\">";
+                                    control += "<span class=\"pull-left\">";
+                                    control += "<i class=\"btn btn-xs no-hover btn-success\"></i>";
+                                    control += " Assigned";
+                                    control += "</span>";
+                                    control += "<span class=\"pull-right badge badge-info\">" + data.Assigned + "</span>";
+                                    control += "</div>";
+                                    control += "</a>";
+                                    control += "</li>";
+                                    control += "</ul>";
+                                    control += "</li>";
+                                    control += "<li>";
+                                    control += "<a href=\"#\">";
+                                    control += "<div class=\"clearfix\">";
+                                    control += "<span class=\"pull-left\">";
+                                    control += "<i class=\"btn btn-xs no-hover btn-danger\"></i>";
+                                    control += " Reply";
+                                    control += "</span>";
+                                    control += "<span class=\"pull-right badge badge-info\">" + data.Reply + "</span>";
+                                    control += "</div>";
+                                    control += "</a>";
+                                    control += "</li>";
+                                    control += "</ul>";
+                                    control += "</li>";
+                                    control += "</ul>";
+                                    $("#newcallalert").html(control);
+                                }
+								
+            }   
+        </script>                    
+        }
+    }
+</body>
+</html>

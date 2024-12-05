@@ -1,0 +1,403 @@
+﻿@{
+    Layout = Layout;
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        LoadGridData();
+        BindLocation();
+        BindLicenseProduct();
+    });
+
+    function LoadGridData() {
+        var objurl = '@Url.Content("~/Asset/GetSoftwareAssetListJQGrid")';
+        var jqTable = '#jqTable1';
+        var jqTablePager = '#jqTablePager1';
+        var objcolNames = ['Action', 'Srno', 'License Product', 'License Version', 'Quantity', 'Expiry Date', 'Remarks', 'Location'];
+        var objcolModel = [
+                            {
+                                name: 'Action', index: 'Action', width: 65, formatter: function (cellvalue, options, rowObject) {
+                                    return "<div title=\"Edit\" style=\"float:left;cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" onclick=\"EditSoftwareAsset('" + rowObject[1] + "'); \" id=\"jEditButton_1\"><span class=\"ace-icon fa fa-pencil blue bigger-120\"></span></div><div title=\"Delete\" style=\"float:left; cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" id=\"jEditButton_1\" onclick=\"DeleteSoftwareAsset('" + rowObject[1] + "'); \" title=\"Delete\">&nbsp;&nbsp;<span class=\"ace-icon fa fa-trash-o bigger-120 red\"></span></div>";
+                                }
+                            },
+                            { name: 'NSRNO', index: 'NSRNO', width: 50 },
+                            { name: 'LICENSEPRODUCT', index: 'LICENSEPRODUCT', width: 330 },
+                            { name: 'LICENSEVERSION', index: 'LICENSEVERSION', width: 120 },
+                            { name: 'QUANTITY', index: 'QUANTITY', width: 100 },
+                            { name: 'EXPIRYDATE', index: 'EXPIRYDATE', width: 100 },
+                            { name: 'REMARKS', index: 'REMARKS', width: 155 },
+                            { name: 'LOCATION', index: 'LOCATION', width: 100 }
+        ];
+        var objcaption = "List of Software Asset";
+        var objjqGridonSelectRow = null;
+        var objsortname = "NSRNO";
+        var objsortorder = "asc";
+        jQuery(jqTable).jqGrid('clearGridData');
+        jQuery(jqTable).jqGrid('setGridParam', { url: objurl });
+        jQuery.GridList.Grid(jqTable, jqTablePager, objcolNames, objcolModel, objurl, objcaption, objsortname, objsortorder, objjqGridonSelectRow);
+        jQuery(jqTable).trigger('reloadGrid');
+        jQuery(jqTable).navGrid(jqTablePager,
+            {
+                edit: false,
+                editicon: 'ace-icon fa fa-pencil blue',
+                add: false,
+                addicon: 'ace-icon fa fa-plus-circle purple',
+                del: false,
+                delicon: 'ace-icon fa fa-trash-o red',
+                search: false,
+                searchicon: 'ace-icon fa fa-search orange',
+                refresh: true,
+                refreshicon: 'ace-icon fa fa-refresh green',
+                view: false,
+                viewicon: 'ace-icon fa fa-search-plus grey',
+            },
+            {}, // settings for edit
+            {}, // settings for add
+            {}, // settings for delete
+            {
+                sopt: ['cn']
+                //sopt: ['eq', 'ne', 'cn', 'nc', 'bw', 'ew'] // Search options. Some options can be set on column level
+            }
+
+        ).navButtonAdd(jqTablePager, {
+            caption: "",
+            title: "Download Excel",
+            id: "btn_report",
+            buttonicon: "ace-icon fa fa-file-excel-o  bigger-140",
+            position: "last",
+            onClickButton: function (e) {
+                $("#btn_excel").click(
+                    ExporttoExcel()
+                 );
+            }
+        });
+    }
+
+    function ExporttoExcel() {
+        var formid = 'frm_SoftwareAsset';
+        var Form = document.getElementById(formid);
+        Form.action = '@Url.Action("ExporttoExcel", "Asset")';
+        Form.submit();
+    }
+
+    function EditSoftwareAsset(SRNO) {
+        $.ajax({
+            url: "../Asset/EditSoftwareAsset?SRNO=" + SRNO,
+            type: 'post',
+            async: false,
+            contenttype: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (a) {
+                if (a.reqStatus == "-1") {
+                    showerror(a.reqMessage);
+                    return false;
+                }
+                else {
+                    $("#hdn_srno").val(a.NSRNO);
+                    $("#drp_Product").val(a.LICENSEPRODUCTCODE).change();
+                    $("#txt_Version").val(a.LICENSEVERSION);
+                    $("#txt_Quantity").val(a.QUANTITY);
+                    $("#txt_ExpiryDate").val(a.EXPIRYDATE);
+                    $("#txt_remarks").val(a.REMARKS);
+                    $("#drp_location").val(a.LOCATIONCODE).change();
+                }
+            },
+            beforeSend: function () {
+                $('#ajaxStatus').show();
+            },
+            complete: function () {
+                $('#ajaxStatus').hide();
+            },
+            error: function (a) {
+                alert(a);
+                $('#ajaxStatus').hide();
+            }
+
+        });
+    }
+
+    function DeleteSoftwareAsset(NSRNO) {
+        $.ajax({
+            url: "../Asset/DeleteSoftwareAsset?NSRNO=" + NSRNO,
+            type: 'POST',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                if (a.MessageCode == "-1") {
+                    ShowError(a.message);
+                    return false;
+                }
+                else {
+                    ShowSuccess(a.message);
+                    $("#refresh_jqTable1").click();
+                }
+            }, error: function (a) { alert(a) }
+        });
+    }
+
+    function BindLocation() {
+        $("#drp_location").empty();
+        var url = '@Url.Content("~/Asset/GetLocation")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_location").append('<option value="">Select Location</option>'),
+                    $.each(result, function (result, a) { $("#drp_location").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function BindLicenseProduct() {
+        $("#drp_Product").empty();
+        var url = '@Url.Content("~/Asset/GetLicenseProduct")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_Product").append('<option value="">Select License Product</option>'),
+                    $.each(result, function (result, a) { $("#drp_Product").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+
+    function SubmitRequest() {
+        var formid = 'frm_SoftwareAsset';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("SubmitSoftwareAsset", "Asset")';
+            $("#" + formid).ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                        $("#refresh_jqTable1").click();
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Software Asset Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+
+    function validateForm(formid) {
+        return $("#" + formid).validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            ignore: "",
+            rules: {
+                drp_Product: {
+                    required: true
+                },
+                txt_Version: {
+                    required: true
+                },
+                txt_Quantity: {
+                    required: true
+                },
+                txt_ExpiryDate: {
+                    required: true
+                },
+                txt_remarks: {
+                    required: true
+                },
+                drp_location: {
+                    required: true
+                }
+            },
+            messages: {
+                drp_Product: {
+                    required: "Please Select License Product"
+                },
+                txt_Version: {
+                    required: "Please Enter License Version"
+                },
+                txt_Quantity: {
+                    required: "Please Enter Quantity"
+                },
+                txt_ExpiryDate: {
+                    required: "Please Select Expiry Date"
+                },
+                txt_remarks: {
+                    required: "Please Enter Remarks"
+                },
+                drp_location: {
+                    required: "Please Select Location"
+                }
+            },
+
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                $(e).remove();
+            },
+
+            errorPlacement: function (error, element) {
+                if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                    else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else error.insertAfter(element.parent());
+            },
+
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+    }
+</script>
+<form class="form-horizontal" id="frm_SoftwareAsset" name="frm_SoftwareAsset" method="post" action="" novalidate="novalidate">
+    <input type="hidden" id="hdn_srno" name="hdn_srno" value="0" />
+    <div class="widget-box col-sm-12">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Software Asset
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="container-fluid shadow">
+                            <div class="row">
+                                <div id="valErr" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                                </div>
+                                <div id="valOk" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-success">Yay! ..</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_Product">License Product:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_Product" name="drp_Product" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Company..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_Version">License Version:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_Version" type="text" class="form-control k-textbox" data-role="text" name="txt_Version" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_Quantity">Quantity:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_Quantity" type="text" class="form-control k-textbox" data-role="text" name="txt_Quantity" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_ExpiryDate">Expiry Date: </label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input class="date-picker col-xs-12 col-sm-9" id="txt_ExpiryDate" name="txt_ExpiryDate" type="text" data-date-format="dd/mm/yyyy" data-date-end-date="0d" value="">
+                                                    <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter Date in DD/MM/YYYY format"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_ExpiryDate">Expiry Date:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_ExpiryDate" type="text" class="form-control k-textbox" data-role="text" name="txt_ExpiryDate" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>*@
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_remarks">Remarks: </label>
+                                            <div class="controls col-sm-9">
+                                                <textarea class="col-xs-12 col-sm-15 limited" id="txt_remarks" name="txt_remarks" maxlength="100"></textarea>
+                                            </div>
+                                            <span id="errId1" class="error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_location">Location:</label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_location" name="drp_location" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Company..." aria-hidden="true"></select>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                <div class="clearfix">
+                    <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="return SubmitRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                    <button id="btn_excel" name="btn_excel" type="submit" class="btn btn-success btn-next" data-last="Finish" style="visibility: hidden">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box col-sm-12">
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="form-group">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="gv_MaterialList">
+                                    <table id="jqTable1"></table>
+                                    <div id="jqTablePager1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>

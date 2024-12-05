@@ -1,0 +1,53 @@
+﻿@{
+    Layout = Layout;
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script>
+    $(document).ready(function () {
+        LoadGridData();
+    });
+
+    function LoadGridData() {
+        var objurl = '@Url.Content("~/Asset/fetchResignedEmpAsset")';
+        var jqTable = '#jqTable1';
+        var jqTablePager = '#jqTablePager1';
+        var objcolNames = ['Employee ID', 'Employee Name', 'Department', 'Locatoin', 'Asset Model', 'Asset Type', 'Resignation Date'];
+        var objcolModel = [
+                            { name: 'Vempno', index: 'Vempno', width: 100 },
+                            { name: 'Vempname', index: 'Vempname', width: 200 },
+                            { name: 'DEPTNAME', index: 'DEPTNAME', width: 200 },
+                            { name: 'Locationname', index: 'Locationname', width: 100 },
+                            { name: 'VMODELNO', index: 'VMODELNO', width: 200 },
+                            { name: 'VTYPEDESCRIPTION', index: 'VTYPEDESCRIPTION', width: 200 },
+                            { name: 'RESIGNDT', index: 'RESIGNDT', width: 130 },
+        ];
+        var objcaption = "Resigned Employee Allocated Asset";
+        var objjqGridonSelectRow = null;
+        var objsortname = "Vempno";
+        var objsortorder = "asc";
+        jQuery(jqTable).jqGrid('clearGridData');
+        jQuery(jqTable).jqGrid('setGridParam', { url: objurl });
+        jQuery.GridList.Grid(jqTable, jqTablePager, objcolNames, objcolModel, objurl, objcaption, objsortname, objsortorder, objjqGridonSelectRow);
+        jQuery(jqTable).trigger('reloadGrid');
+    }
+</script>
+@using (Html.BeginForm("ResignedEmpAsset", "Asset", FormMethod.Post, new { name = "frm_ResignedEmpAsset", id = "frm_ResignedEmpAsset", novalidate = "novalidate", @class = "form-horizontal" }))
+{
+    <div class="widget-box col-sm-12">
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="form-group">
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div id="gv_MaterialList">
+                                <table id="jqTable1"></table>
+                                <div id="jqTablePager1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

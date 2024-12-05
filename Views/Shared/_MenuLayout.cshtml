@@ -1,0 +1,66 @@
+﻿@{
+    var usermanullist = (List<MobileReimbursement.Models.Applicationmenu>)Session["UserMenu"];
+    List<MobileReimbursement.Models.Applicationmenu> menulilst = new List<MobileReimbursement.Models.Applicationmenu>();
+
+    String action = ViewContext.RouteData.Values["action"].ToString();
+    String controller = ViewContext.RouteData.Values["controller"].ToString();
+}
+<ul class="nav nav-list">
+    @if (usermanullist != null && usermanullist.Count > 0)
+    {
+        foreach (var item in usermanullist.Where(u => u.Parentmenucode == 0))
+        {
+        <li class="">
+            @if (usermanullist.Count(p => p.Parentmenucode == item.Menucode) > 0)
+            {
+                
+                <a href="#" class="dropdown-toggle">
+
+                    <i class="menu-icon fa @item.Accesskey"></i>
+
+                    <span class="menu-text">@item.Menuname </span><b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>
+                <ul class="submenu">
+                    @foreach (var chieldmenu in usermanullist.Where(p => p.Parentmenucode == item.Menucode).OrderBy(p => p.Menucode))
+                    {
+                        string a = chieldmenu.Url.Split('/')[1];
+                        if (("IMS").Contains(@chieldmenu.Menuname))
+                        {
+                        <li class="">
+                            <a href="@chieldmenu.Url"  target="_blank">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                @chieldmenu.Menuname
+                            </a><b class="arrow"></b>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="@((action == a) ? "active" : "")"><a href="~/@chieldmenu.Url" ><i class="menu-icon fa fa-caret-right"></i>@chieldmenu.Menuname</a><b class="arrow"></b> </li>
+                        }
+                    }
+                </ul>
+
+            }
+            else
+            {
+               
+                if (!string.IsNullOrEmpty(item.Url))
+                {
+                <a href="~/@item.Url">
+
+                    <i class="menu-icon fa @item.Accesskey"></i>
+
+                    <span class="menu-text">@item.Menuname</span></a><b class="arrow"></b>
+                }
+                else
+                {
+                <a href="#">
+                    <i class="menu-icon fa @item.Accesskey"></i>
+                    <span class="menu-text">@item.Menuname</span></a><b class="arrow"></b>
+                }
+            }
+        </li>
+
+        }
+    }
+
+</ul>

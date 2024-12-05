@@ -1,0 +1,138 @@
+﻿<script language="javascript" type="text/javascript">
+    function pad(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+    function getSessionTimeout()
+    {
+        var sessionTimeoutWarning = @System.Configuration.ConfigurationSettings.AppSettings["SessionWarning"].ToString();
+        var sessionTimeout = @Session.Timeout;                
+        var sTimeout = parseInt(sessionTimeoutWarning) * 60 * 1000;
+        setTimeout('SessionWarning(' + sessionTimeout + ','+ sessionTimeoutWarning +')', sTimeout);
+    }
+
+    function SessionWarning(sessionTimeout, sessionTimeoutWarning) {
+        var message = "Your session will expire in another <b><span style='color: green; font-size: 22px;'> " + (parseInt(sessionTimeout) - parseInt(sessionTimeoutWarning)) + " </span></b>mins! Please Save the data before the session expires";                    
+        var Seconds = (parseInt(sessionTimeout) - parseInt(sessionTimeoutWarning)) * 60;
+        setTimeout('SessionCounter(' + Seconds +')', 1000);
+        $("#session_Model_body").html(message);
+        $('#my-modal').modal('show');
+    }
+
+    function Warning_Close()
+    {
+        $('#my-warning-model').modal('hide');
+    }
+    function SessionCounter(RemainingSeconds)
+    {   
+        var mind = RemainingSeconds % (60 * 60);
+        var minutes = Math.floor(mind / 60);
+
+        var secd = mind % 60;
+        var seconds = Math.ceil(secd);
+
+        if(minutes == 0 & seconds == 0) 
+        {                
+            var message = "Your session is already expired. Please login again......";
+            $("#btn_continue").addClass("hide");
+            $("#btn_Login").removeClass("hide");
+            $("#hdn_issessionexpire").val("1");
+            $("#session_Model_body").html(message);
+        }
+        else
+        {
+            var message = "Your session will expire in another <b><span style='color: green; font-size: 22px;'> " + minutes + ":" + pad(seconds, 2)  + " </span></b>mins! Please Save the data before the session expires";                                    
+            RemainingSeconds = RemainingSeconds - 1;
+            $("#session_Model_body").html(message);                    
+            setTimeout('SessionCounter('+ RemainingSeconds +')', 1000);                    
+        }
+    }
+
+    function ContinueSession()
+    {   
+        $.ajax({
+            url: '../Home/ContinueSession',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (result) {
+                if(result.MessageCode == "0")
+                {
+                    ShowSuccess("Session refreshed successfully.......");      
+                    getSessionTimeout();                  
+                }
+                else {
+                    ShowError(result.message);
+                }         
+            },
+            error: function (xhr, textStatus, errorThrown) {                        
+                ShowError("Error while refreshing session.....");
+            }
+        });  
+    }
+    function MovetoLogin()
+    {
+        window.location = "../Home/Login";
+    }
+</script>  
+
+<div id="my-modal" class="modal fade" data-keyboard="false" role="dialog" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">				        
+				<h3 class="smaller lighter blue no-margin">Session Time out warning</h3>
+			</div>
+            <input type="hidden" id="hdn_issessionexpire" name="hdn_issessionexpire" value="0" />
+			<div class="modal-body" id="session_Model_body">
+				Your session is going to expiry soon. Please save page content or it will automatically discarded.
+			</div>
+
+			<div class="modal-footer">
+				<button id="btn_continue" class="btn btn-sm btn-success pull-right" data-dismiss="modal" onclick="return ContinueSession()">
+					<i class="ace-icon fa fa-refresh"></i>
+					Continue Working
+				</button>
+                <button id="btn_Login" class="hide btn btn-sm btn-danger pull-right" data-dismiss="modal" onclick="return MovetoLogin()">
+					<i class="ace-icon fa fa-times"></i>
+					Login
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><div id="my-warning-model" class="modal fade" data-keyboard="false" role="dialog" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">	                			        
+				<h3 class="smaller lighter blue no-margin">
+                    <i class="ace-icon fa fa-exclamation-triangle"></i>
+                    Application warning
+                </h3>
+			</div>            
+			<div class="modal-body" id="warning_Model_body">
+				
+			</div>
+
+			<div class="modal-footer">
+				<button id="btn_warning_close" class="btn btn-sm btn-success pull-right" data-dismiss="modal" onclick="return Warning_Close()">
+					<i class="ace-icon fa fa-refresh"></i>
+					Continue Working
+				</button>                
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><script type="text/javascript">
+    jQuery(function ($) {
+        //$('.modal.aside').ace_aside();
+
+        //$('#aside-inside-modal').addClass('aside').ace_aside({ container: '#my-modal > .modal-dialog' });
+
+        //$('#my-modal').modal('show')
+        $(document).one('ajaxloadstart.page', function (e) {
+            //in ajax mode, remove before leaving page
+            $('.modal.aside').remove();
+            $(window).off('.aside')
+        });
+    })
+    getSessionTimeout();
+</script>

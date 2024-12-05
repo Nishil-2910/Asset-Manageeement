@@ -1,0 +1,183 @@
+﻿@{
+    Layout = Layout;
+}
+<script type="text/javascript" src="~/Scripts/jQuery.GridList.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadGridData();
+        });
+        function LoadGridData() {
+            var objurl = '@Url.Content("~/Asset/GetAssetApprovalListJQGrid")';
+            var jqTable = '#jqTable2';
+            var jqTablePager = '#jqTablePager2';
+            var objcolNames = ['Action', 'Request No', 'Request By', 'Location', 'Item'];
+            var objcolModel = [
+                                {
+                                    name: 'Action', index: 'Action', width: 200, formatter: function (cellvalue, options, rowObject) {
+                                        return "<div title=\"History\" style=\"float:left;cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" onclick=\"ViewHistory('" + rowObject[1] + "'); \" id=\"jEditButton_1\"><span class=\"ui-icon fa fa-th-large fa-1x bigger-120 blue\"></span></div><div title=\"Approve\" style=\"float:left; cursor:pointer;\" class=\"ui-pg-div ui-inline-edit\" id=\"jEditButton_1\" onclick=\"AssetRequestApprove('" + rowObject[1] + "'); \" title=\"Approve\">&nbsp;&nbsp;<span class=\"ui-icon fa-check fa-1x bigger-120  green\"></span></div>";
+                                    }
+                                },
+                                { name: 'Nrequestno', index: 'Nrequestno', width: 200 },
+                                { name: 'Nrequestby', index: 'Nrequestby', width: 220 },
+                                { name: 'Location', index: 'Location', width: 150 },
+                                { name: 'Item', index: 'Item', width: 250 }
+            ];
+            var objcaption = "Asset request pending approval";
+            var objjqGridonSelectRow = null;
+            var objsortname = "Nrequestno";
+            var objsortorder = "asc";
+            jQuery(jqTable).jqGrid('clearGridData');
+            jQuery(jqTable).jqGrid('setGridParam', { url: objurl });
+            jQuery.GridList.Grid(jqTable, jqTablePager, objcolNames, objcolModel, objurl, objcaption, objsortname, objsortorder, objjqGridonSelectRow);
+            jQuery(jqTable).trigger('reloadGrid');
+        }
+        function ViewHistory(Reqno) {
+            var objurl = '@Url.Content("~/Asset/AssetReqHistory")';
+            var objdata = '{Reqno: "' + Reqno + '" }';
+            var objbuttons = [
+                           {
+                               html: "<i class='ace-icon fa fa-times bigger-110 dark'></i><span style='color: #121212' accesskey='c'>&nbsp; Close</span>",
+                               "id": "btn_gvsearchgpno",
+                               "name": "btn_gvsearchgpno",
+                               "class": "btn",
+                               "style": "padding: 8px;",
+                               click: function () {
+                                   $(this).dialog("close");
+                               }
+                           }
+            ];
+            jQuery.GridList.popuppartialview(objurl, objdata, "View History", "viewAssetRequest", objbuttons);
+        }
+    function AssetRequestApprove(Reqno) {
+        //alert(Reqno);
+            var objurl = '@Url.Content("~/Asset/ViewRequest")';
+            var objdata = '{Reqno: "' + Reqno + '" }';
+            var objbuttons = [
+                                {
+                                    html: "<i class='ace-icon fa fa-floppy-o icon-on-right'></i><span style='color: #121212' accesskey='c'>&nbsp; Submit</span>",
+                                    "id": "btn_approve",
+                                    "name": "btn_approve",
+                                    "class": "btn btn-success btn-next",
+                                    "style": "padding: 8px;",
+                                    click: function () {
+                                        if ($("#txt_remarks").val().length > 0) {
+                                            SaveData(Reqno, $("#txt_remarks").val(), $("#drp_fcname").val());
+                                            $(this).dialog("close");
+                                        }
+                                        else {
+                                            ShowError("Remarks required.");
+                                        }
+
+                                    }
+                                },
+                                {
+                                    html: "<i class='ace-icon fa fa-times bigger-110 dark'></i><span style='color: #121212' accesskey='c'>&nbsp; Close</span>",
+                                    "id": "btn_close",
+                                    "name": "btn_close",
+                                    "class": "btn",
+                                    "style": "padding: 8px;",
+                                    click: function () {
+                                        $(this).dialog("close");
+                                    }
+                                }
+            ];
+            jQuery.GridList.popuppartialview(objurl, objdata, "Pending Asset Request Details", "viewAssetRequest", objbuttons);
+        }
+        function SaveData(Reqno, Remarks, fcempno) {
+            var Status = $('input[name=form-field-radio]:checked').val();
+            var formid = 'frm_Assetapproval';
+            var obj = validateForm(formid);
+            if (obj.form()) {
+                var Form = document.getElementById(formid);
+                $.ajax({
+                    url: "../Asset/ApproveRequest?Reqno=" + Reqno + "&Status=" + Status + "&Remarks=" + Remarks + "&fcempno=" + fcempno,
+                    type: 'POST',
+                    async: false,
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (a) {
+                        if (a.MessageCode == "-1") {
+                            ShowError(a.message);
+                            return false;
+                        }
+                        else {
+                            ShowSuccess(a.message);
+                            $("#refresh_jqTable2").click();
+                        }
+                    }, error: function (a) { alert(a) }
+                });
+            }
+            else {
+                var Form = document.getElementById(formid);
+                Form.action = "";
+                return false;
+            }
+        }
+        function validateForm(formid) {
+            return $("#" + formid).validate({
+                errorElement: 'div',
+                errorClass: 'help-block',
+                focusInvalid: false,
+                ignore: "",
+                rules: {
+                    txt_remarks: {
+                        required: true
+                    }
+                },
+                messages: {
+                    txt_remarks: {
+                        required: "Please Enter Remarks"
+                    }
+                },
+                highlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+                },
+
+                success: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error'); //.addClass('has-info');
+                    $(e).remove();
+                },
+
+                errorPlacement: function (error, element) {
+                    if (element.is('input[type=checkbox]') || element.is('input[type=radio]')) {
+                        var controls = element.closest('div[class*="col-"]');
+                        if (controls.find(':checkbox,:radio').length > 1) controls.append(error);
+                        else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                    }
+                    else if (element.is('.select2')) {
+                        error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                    }
+                    else if (element.is('.chosen-select')) {
+                        error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                    }
+                    else error.insertAfter(element.parent());
+                },
+
+                submitHandler: function (form) {
+                },
+                invalidHandler: function (form) {
+                }
+            });
+        }
+</script>
+<form class="form-horizontal" id="frm_Reimbursementapproval" name="frm_Reimbursementapproval" method="post" action="" novalidate="novalidate">
+    <body>
+        <div class="widget-box col-sm-12">
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="form-group">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <div id="gv_ReimbursementList">
+                                    <table id="jqTable2"></table>
+                                    <div id="jqTablePager2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="viewReimbursementRequest" class="form-horizontal" class="hide"></div>
+</form>

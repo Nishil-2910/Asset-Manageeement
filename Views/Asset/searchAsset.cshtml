@@ -1,0 +1,375 @@
+﻿@{
+    ViewBag.Title = Layout;
+    var uld = (MobileReimbursement.Models.UserLoginData)Session["UserObject"];
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btn_search').click(function () {
+            if ($('#txt_search').val() == "") {
+                alert("Please Enter Serial Number");
+            }
+            else {
+                BindSerialNoDetails($('#txt_search').val());
+            }
+        });
+        BindOS();
+
+        if ('@uld.EMPNO' == "1101615" || '@uld.EMPNO' == "1101626") {
+            document.getElementById("btn_save").style.display = "";
+        }
+        else {
+            document.getElementById("btn_save").style.display = "none";
+        }
+
+    });
+    function BindSerialNoDetails(Serialno) {
+        $.ajax({
+            url: "../Asset/GetSerialNoDetail?Serialno=" + Serialno,
+            type: 'GET',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (a) {
+                $("#txt_company").val(a.CMPNAME);
+                $("#txt_division").val(a.DIVNAME);
+                $("#txt_unit").val(a.UNITNAME);
+                $("#txt_department").val(a.DEPTNAME);
+                $("#txt_location").val(a.Locationname);
+                $("#txt_domain").val(a.Domainname);
+                $("#txt_empno").val(a.Vempno);
+                $("#txt_empname").val(a.Vempname);
+                $("#txt_item").val(a.ItemName);
+                $("#txt_status").val(a.Statusname);
+                if (a.Statusname == "ACTIVE" || a.Statusname == "Retired Asset") {
+                    $("#drp_Status").show();
+                }
+                $("#txt_allocationdate").val(a.Dallocationdate);
+                $("#txt_hostname").val(a.Hostname);
+                $("#txt_compliance").val(a.Compliancename);
+                $("#drp_OS").val(a.OS).change();
+                $("#txt_allocatedby").val(a.Engname);
+                $("#txt_remarks").val(a.Vreason);
+                $("#hdn_Assetno").val(a.Assetno1);
+
+                $("#txt_VendorName").val(a.Vendorname);
+                $("#txt_InvoiceNo").val(a.InvoiceNo);
+                $("#txt_InvoiceDate").val(a.DocumentDate);
+            }, error: function (a) { alert(a) }
+        });
+    }
+    //Bind OS dropdown
+    function BindOS() {
+        $("#drp_OS").empty();
+        var url = '@Url.Content("~/Asset/GetOS")';
+        $.ajax({
+            type: "POST",
+            url: url,
+            datatype: "Json",
+            success: function (result) {
+                $("#drp_OS").append('<option value="">Select OS</option>'),
+                    $.each(result, function (result, a) { $("#drp_OS").append('<option value="' + a.Drpvalu + '">' + a.Drptext + "</option>") });
+            }
+        });
+    }
+    function SubmitRequest() {
+        var formid = 'frm_assetAllocation';
+        var obj = validateForm(formid);
+        if (obj.form()) {
+            var Form = document.getElementById(formid);
+            Form.action = '@Url.Action("SubmitSearchAsset", "Asset")';
+            $("#" + formid).ajaxForm({
+                iframe: true,
+                dataType: "json",
+                success: function (result) {
+                    if (result.MessageCode == "-1") {
+                        ShowError(result.message);
+                        return false;
+                    }
+                    else {
+                        ShowSuccess(result.message);
+                        $("#" + formid).action = "";
+                        $("#" + formid).trigger("reset");
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("error");
+                    ShowError("Error Occured Submiting Search Asset Request. Try Restarting your current session.");
+                }
+            });
+        }
+        else {
+            var Form = document.getElementById(formid);
+            Form.action = "";
+            return false;
+        }
+    }
+</script>
+<form class="form-horizontal" id="frm_assetAllocation" name="frm_assetAllocation" method="post" action="" novalidate="novalidate">
+    <input type="hidden" id="hdn_Assetno" name="hdn_Assetno" value="" />
+    <div class="widget-box col-sm-11">
+        <div class="widget-header widget-header-flat">
+            <h4 class="widget-title smaller">
+                <i class="ace-icon fa fa-list-alt smaller-120"></i>Search Asset
+            </h4>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="container-fluid shadow">
+                            <div class="row">
+                                <div id="valErr" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-danger">Oops! Seems there are some errors..</div>
+                                </div>
+                                <div id="valOk" class="row viewerror clearfix hidden">
+                                    <div class="alert alert-success">Yay! ..</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="field4">Serial No:<span class="req"></span></label>
+                                            <div class="controls col-sm-9">
+
+                                                <div id="field4" class="input-group">
+                                                    <input type="text" id="txt_search" name="txt_search" class="form-control" data-role="lookup" data-parsley-errors-container="#errId1">
+                                                    <span class="input-group-addon" id="btn_search"><span class="ace-icon-purple fa fa-search icon-on-right bigger-100"></span></span>
+                                                </div>
+                                                <span id="errId1" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_company">Company:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_company" type="text" class="form-control k-textbox" data-role="text" name="txt_company" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_division">Division:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_division" type="text" class="form-control k-textbox" data-role="text" name="txt_division" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_unit">Unit:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_unit" type="text" class="form-control k-textbox" data-role="text" name="txt_unit" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_department">Department:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_department" type="text" class="form-control k-textbox" data-role="text" name="txt_department" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_location">Location:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_location" type="text" class="form-control k-textbox" data-role="text" name="txt_location" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_domain">Domain:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_domain" type="text" class="form-control k-textbox" data-role="text" name="txt_domain" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_empno">Employee No:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_empno" type="text" class="form-control k-textbox" data-role="text" name="txt_empno" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_empname">Employee Name:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_empname" type="text" class="form-control k-textbox" data-role="text" name="txt_empname" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_item">Item:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_item" type="text" class="form-control k-textbox" data-role="text" name="txt_item" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_status">Status:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_status" type="text" class="form-control k-textbox" data-role="text" name="txt_status" readonly="readonly" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_allocationdate">Allocation Date:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_allocationdate" type="text" class="form-control k-textbox" data-role="text" name="txt_allocationdate" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_hostname">Host Name:</label>
+                                            <div class="controls col-sm-9">
+
+                                                <input id="txt_hostname" type="text" class="form-control k-textbox limited" data-role="text" name="txt_hostname" maxlength="15" data-parsley-errors-container="#errId4"><span id="errId4" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_compliance">GXP / NONGXP:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_compliance" type="text" class="form-control k-textbox" data-role="text" name="txt_compliance" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_OS">OS: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_OS" name="drp_OS" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose OS..." aria-hidden="true"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_allocatedby">Allocated By:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_allocatedby" type="text" class="form-control k-textbox" data-role="text" name="txt_allocatedby" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_remarks">Remarks: </label>
+                                            <div class="clearfix">
+                                                <textarea class="col-xs-12 col-sm-9 limited" id="txt_remarks" name="txt_remarks" maxlength="100"></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_VendorName">Vendor Name:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_VendorName" type="text" class="form-control k-textbox" data-role="text" name="txt_VendorName" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_InvoiceNo">Invoice No.:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_InvoiceNo" type="text" class="form-control k-textbox" data-role="text" name="txt_InvoiceNo" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_InvoiceDate">Invoice Date:</label>
+                                            <div class="controls col-sm-9">
+                                                <input id="txt_InvoiceDate" type="text" class="form-control k-textbox" data-role="text" name="txt_InvoiceDate" readonly="readonly" data-parsley-errors-container="#errId3"><span id="errId3" class="error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row" style="display:none;" id="drp_Status">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="drp_action">Action: </label>
+                                            <div class="controls col-sm-9">
+                                                <select id="drp_action" name="drp_action" class="select2 form-control" data-parsley-errors-container="#errId1" data-placeholder="Click to Choose Transport..." aria-hidden="true">
+                                                    <option value="3" selected>DeAllocated</option>
+                                                    <option value="4">Stolen</option>
+                                                    <option value="5">Scrape</option>
+                                                    <option value="6">Damaged</option>
+                                                    <option value="7">Conk off</option>
+                                                    <option value="9">Retired Asset</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label control-label-left col-sm-3" for="txt_allocationdate">DeAllocation Date: </label>
+                                            <div class="col-xs-12 col-sm-9">
+                                                <div class="clearfix">
+                                                    <input class="date-picker col-xs-12 col-sm-9" id="txt_deallocationdate" name="txt_deallocationdate" type="text" data-date-format="dd/mm/yyyy" data-date-end-date="0d" value="">
+                                                    <span class="badge badge-yellow" style="margin-left: 15px;"><span title="" class="ace-icon fa fa-question gray" data-rel="tooltip" data-placement="right" data-original-title="Enter Date in DD/MM/YYYY format"></span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    -->
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12 col-sm-12" style="text-align: center;">
+                                        <div class="clearfix">
+                                            <button id="btn_save" name="btn_save" type="submit" class="btn btn-success btn-next" data-last="Finish" onclick="return SubmitRequest();">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                                            <button id="btn_excel" name="btn_excel" type="submit" class="btn btn-success btn-next" data-last="Finish" style="visibility: hidden">Submit <i class="ace-icon fa fa-plus icon-on-right"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
