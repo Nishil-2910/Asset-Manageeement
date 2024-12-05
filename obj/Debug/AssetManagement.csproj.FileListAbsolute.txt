@@ -1,0 +1,260 @@
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\AssetManagement.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\AssetManagement.pdb
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Antlr3.Runtime.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\EntityFramework.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Newtonsoft.Json.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Oracle.DataAccess.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Helpers.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Mvc.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Optimization.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Razor.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebGrease.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.Data.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.WebData.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\EntityFramework.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Newtonsoft.Json.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Helpers.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Mvc.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Razor.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.Data.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.WebData.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
+D:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
+D:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csprojResolveAssemblyReference.cache
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\AssetManagement.dll.config
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\AssetManagement.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\AssetManagement.pdb
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Antlr3.Runtime.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\EntityFramework.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Microsoft.Web.Infrastructure.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Newtonsoft.Json.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Oracle.DataAccess.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Helpers.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Mvc.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Optimization.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Razor.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebGrease.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.Data.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.WebData.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\EntityFramework.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Newtonsoft.Json.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Helpers.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Mvc.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.Razor.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.Data.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\WebMatrix.WebData.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+H:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csprojAssemblyReference.cache
+H:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CoreCompileInputs.cache
+H:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CopyComplete
+H:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
+H:\DOT Net Projects\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
+D:\SFIntegration\AssetManagement\AssetManagement\bin\AssetManagement.dll.config
+D:\SFIntegration\AssetManagement\AssetManagement\bin\AssetManagement.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\AssetManagement.pdb
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Antlr3.Runtime.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\EntityFramework.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Newtonsoft.Json.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Oracle.DataAccess.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Helpers.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Mvc.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Optimization.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Razor.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\WebGrease.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.Data.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.WebData.dll
+D:\SFIntegration\AssetManagement\AssetManagement\bin\EntityFramework.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Newtonsoft.Json.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Helpers.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Mvc.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Razor.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.Data.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.WebData.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.xml
+D:\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csprojResolveAssemblyReference.cache
+D:\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CoreCompileInputs.cache
+D:\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
+D:\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\AssetManagement.dll.config
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\AssetManagement.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\AssetManagement.pdb
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Antlr3.Runtime.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\EntityFramework.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Microsoft.Web.Infrastructure.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Newtonsoft.Json.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Helpers.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Mvc.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Optimization.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Razor.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\WebGrease.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.Data.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.WebData.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\EntityFramework.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Newtonsoft.Json.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Helpers.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Mvc.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.Razor.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.Data.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\WebMatrix.WebData.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csprojAssemblyReference.cache
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CoreCompileInputs.cache
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CopyComplete
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
+H:\DOT Net Projects\SFIntegration\AssetManagement\AssetManagement\bin\Oracle.DataAccess.dll
+D:\Application\AssetManagement\AssetManagement\bin\AssetManagement.dll.config
+D:\Application\AssetManagement\AssetManagement\bin\AssetManagement.dll
+D:\Application\AssetManagement\AssetManagement\bin\AssetManagement.pdb
+D:\Application\AssetManagement\AssetManagement\bin\Antlr3.Runtime.dll
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.dll
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.dll
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.dll
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.dll
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.dll
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.dll
+D:\Application\AssetManagement\AssetManagement\bin\EntityFramework.dll
+D:\Application\AssetManagement\AssetManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\Application\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.dll
+D:\Application\AssetManagement\AssetManagement\bin\Newtonsoft.Json.dll
+D:\Application\AssetManagement\AssetManagement\bin\Oracle.DataAccess.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Helpers.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Http.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Mvc.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Optimization.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Razor.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.WebPages.dll
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.dll
+D:\Application\AssetManagement\AssetManagement\bin\WebGrease.dll
+D:\Application\AssetManagement\AssetManagement\bin\WebMatrix.Data.dll
+D:\Application\AssetManagement\AssetManagement\bin\WebMatrix.WebData.dll
+D:\Application\AssetManagement\AssetManagement\bin\EntityFramework.xml
+D:\Application\AssetManagement\AssetManagement\bin\Newtonsoft.Json.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Net.Http.Formatting.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Helpers.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Http.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Http.WebHost.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Mvc.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.Razor.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.WebPages.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.WebPages.Deployment.xml
+D:\Application\AssetManagement\AssetManagement\bin\System.Web.WebPages.Razor.xml
+D:\Application\AssetManagement\AssetManagement\bin\WebMatrix.Data.xml
+D:\Application\AssetManagement\AssetManagement\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\Application\AssetManagement\AssetManagement\bin\WebMatrix.WebData.xml
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.AspNet.xml
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.Core.xml
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OAuth.xml
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.xml
+D:\Application\AssetManagement\AssetManagement\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\Application\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csproj.CoreCompileInputs.cache
+D:\Application\AssetManagement\AssetManagement\obj\Debug\AssetManagement.dll
+D:\Application\AssetManagement\AssetManagement\obj\Debug\AssetManagement.pdb
+D:\Application\AssetManagement\AssetManagement\obj\Debug\AssetManagement.csprojResolveAssemblyReference.cache
